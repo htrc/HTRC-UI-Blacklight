@@ -1,0 +1,3 @@
+#!/bin/bash
+echo Starting Blacklight in the background...
+RAILS_RELATIVE_URL_ROOT="/blacklight" rails server --environment=production --daemon
