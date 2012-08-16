@@ -11,7 +11,7 @@
 # how to start up solr, generally for automated testing. 
 
 development:
-  url: 'http://chinkapin.pti.indiana.edu:9994'
+  url: 'http://chinkapin.pti.indiana.edu:9994/solr'
 #  url: 'http://localhost:9994/solr'
 
 production:
