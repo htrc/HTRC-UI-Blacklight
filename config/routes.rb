@@ -6,7 +6,11 @@ BlacklightHtrc::Application.routes.draw do
   
     Blacklight.add_routes(self)
     
+    # Add support for periods in ids and select_all routes
     resources :catalog, :only => [:index, :show, :update], :id => /.+/
+    resources :folder, :only => [:index, :show, :update], :id => /.+/
+    resources :select_all, :only => [:index, :update], :as => "select_all"
+    match "select_all/clear", :to => "select_all#clear"
   
     devise_for :users
   

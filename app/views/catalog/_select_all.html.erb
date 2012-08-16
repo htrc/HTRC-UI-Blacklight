@@ -1,0 +1,5 @@
+<div class="selectall" style="width: 590; text-align: right;">
+   <%- key = "selectall|#{session[:search][:q]}|#{session[:search][:search_field]}" -%>
+   <%= check_box_tag(:selectall, 1, session[key]) %>
+   <%= label_tag(:selectall, "Select All") %>
+</div>
