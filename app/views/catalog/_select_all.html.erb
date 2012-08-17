@@ -1,5 +1,18 @@
 <div class="selectall" style="width: 590; text-align: right;">
-   <%- key = "selectall|#{session[:search][:q]}|#{session[:search][:search_field]}" -%>
+   <%- 
+        key = "selectall"
+
+        for field in session[:search] do
+           param = String(field[0])
+           if param == 'q' || param == 'f' || param == 'search_field'
+              key += "|#{field[0]} #{field[1]}"
+           end
+        end
+   -%>
    <%= check_box_tag(:selectall, 1, session[key]) %>
    <%= label_tag(:selectall, "Select All") %>
+   <%= hidden_field_tag "select_all_total", @response.total %>
+   <div id="loading" style="display: none">
+       <p><img src="/assets/blacklight/indicator.gif"></p>
+   </div>
 </div>

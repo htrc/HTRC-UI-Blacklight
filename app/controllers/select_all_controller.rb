@@ -20,6 +20,9 @@ class SelectAllController < ApplicationController
     key = get_select_all_query_key
     session[key] = true
 
+
+logger.debug "#{key} #{session[key]}"
+
     logger.debug "Key = #{key}; Select All = #{session[key]}"
 
     # Initialize stored document ids, if empty
@@ -76,10 +79,38 @@ class SelectAllController < ApplicationController
     end
 
   end
- 
 
   # Run the current query and get only the ids from solr
   def get_ids_for_query()
+
+    ids = Array.new
+
+    # Total number of documents from current query
+    total_docs = session[:search][:total]
+
+    # Construct Solr query
+    solr_params = Hash.new
+    solr_params[:fl] = "id"
+    solr_params[:rows] = total_docs
+    #solr_params[:rows] = 1000 # Limit to 1000 for now
+    solr_params[:start] = "0"
+
+    @response, @documents = get_search_results(session[:search], solr_params)
+
+    start = @response.response[:start]
+    num_found = @response.response[:numFound]
+    
+    # Populate the list of ids
+    for doc in @response.response[:docs]
+       ids << doc[:id]
+    end
+ 
+    return ids
+  end
+  
+  # cwillis 8/17/2012 -- original implementation uses find directly, but 
+  # has issues with the filters. To be deleted.
+  def get_ids_for_query2()
 
     ids = Array.new
 
@@ -96,12 +127,25 @@ class SelectAllController < ApplicationController
     solr_params[:q] = session[:search][:q]
     solr_params[:search_field] = session[:search][:search_field]
     solr_params[:fl] = "id"
-    #solr_params[:rows] = total_docs
-    solr_params[:rows] = 1000 # Limit to 1000 for now
+    solr_params[:rows] = total_docs
+    #solr_params[:rows] = 1000 # Limit to 1000 for now
     solr_params[:start] = "0"
+    solr_params[:fq] ||= []
+
+
+logger.debug session[:search][:f]
+    # deal with facets
+    facet_params = session[:search][:f]
+    facet_params.each_pair do |facet_field, value_list|
+      Array(value_list).each do |value|
+        #solr_params[:fq] << facet_value_to_fq_string(facet_field, value)
+        solr_params[:fq] << "#{facet_field}:#{value_list}"
+      end
+    end
 
     # Get the results from Solr
     solr_response = find(blacklight_config.solr_request_handler, solr_params)
+logger.debug solr_params.inspect
     
     start = solr_response[:response][:start]
     num_found = solr_response[:response][:numFound]
@@ -115,6 +159,14 @@ class SelectAllController < ApplicationController
   end
   
   def get_select_all_query_key
-     return "selectall|#{session[:search][:q]}|#{session[:search][:search_field]}"
+     key = "selectall"
+     for field in session[:search] do
+        param = String(field[0])
+        if param == 'q' || param == 'f' || param == 'search_field'
+           key += "|#{field[0]} #{field[1]}"
+        end
+     end
+     return key
+     #return "selectall|#{session[:search][:q]}|#{session[:search][:search_field]}"
   end
 end
