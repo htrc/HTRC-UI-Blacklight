@@ -1,0 +1,29 @@
+<%= form_tag(:controller => "registry", :action => "export") do %> 
+
+  <h3>Select an existing collection</h3>
+
+  <select id="col" name="col">
+
+    <%- @collections.each do |collection| -%>
+        <option id="<%= collection['id'] %>" value="<%= collection['id'] %>"><%= collection["name"] %></option>
+    <%- end -%>
+  </select><br>
+
+  <%= submit_tag("Export") %>
+<% end %>
+
+<%= form_tag(:controller => "registry", :action => "export") do %> 
+  <h3>Create a new Collection</h3>
+  <table style="border: none">
+  <tr><td><%= label_tag(:n, "Name:") %></td><td><%= text_field_tag(:n) %></td></tr>
+
+  <tr><td><%= label_tag(:d, "Description:") %></td><td><%= text_field_tag(:d) %></td></tr>
+
+  <tr><td><%= label_tag(:a, "Availability:") %></td><td>
+  <%= select_tag(:a, options_for_select([['Public', 'public'], ['Private', 'private']], 2)) %></td></tr>
+
+  <tr><td><%= label_tag(:tags, "Tags:") %></td><td><%= text_field_tag(:tags) %></td></tr>
+
+  <tr><td colspan="2"><%= submit_tag("Export") %></td></tr>
+
+<% end %>
