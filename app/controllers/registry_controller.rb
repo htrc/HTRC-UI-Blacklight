@@ -33,6 +33,19 @@ class RegistryController < ApplicationController
       session[:collections] = @collections
   end
 
+
+  def load
+      logger.debug "load"
+      token = login
+
+      id = Integer(params[:col]) - 1
+      collection = session[:collections][id] 
+      name = collection["name"]
+      ids = get_collection (token, name)
+
+      session[:folder_document_ids] = ids
+  end
+
   def export
       logger.debug "export"
 
@@ -154,8 +167,17 @@ class RegistryController < ApplicationController
      logger.debug "Response Code: #{response.code}"
 
      xml = response.body
-     logger.debug xml     
+     logger.debug "XML: #{xml}"
+ 
+     doc = REXML::Document.new(xml)
 
+     ids = Array.new
+     doc.elements.each("/collection/ids/id") do |id|
+logger.debug id.text
+         ids << id.text
+     end
+logger.debug "IDS: #{ids.inspect}"
+     return ids
   end
 
   def create_collection (token, name, desc, avail, tags)
@@ -169,7 +191,7 @@ class RegistryController < ApplicationController
   def modify_collection (token, name, desc, avail, tags)
      logger.debug "modify_collection #{token}, #{name}, #{desc}, #{avail}, #{tags}"
 
-     get_collection(token, name)
+     #get_collection(token, name)
 
      #encoded = URI::encode(name)
      #url = "http://chinkapin.pti.indiana.edu:9000/agent/modify/collection/#{encoded}"

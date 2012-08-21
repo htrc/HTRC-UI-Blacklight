@@ -1,6 +1,6 @@
 <%= form_tag(:controller => "registry", :action => "export") do %> 
 
-  <h3>Select an existing collection</h3>
+  <h3>Update an existing collection</h3>
 
   <select id="col" name="col">
 
@@ -25,5 +25,20 @@
   <tr><td><%= label_tag(:tags, "Tags:") %></td><td><%= text_field_tag(:tags) %></td></tr>
 
   <tr><td colspan="2"><%= submit_tag("Export") %></td></tr>
+  </table>
 
+<% end %>
+
+<%= form_tag(:controller => "registry", :action => "load") do %> 
+
+  <h3>Load an existing collection</h3>
+
+  <select id="col" name="col">
+
+    <%- @collections.each do |collection| -%>
+        <option id="<%= collection['id'] %>" value="<%= collection['id'] %>"><%= collection["name"] %></option>
+    <%- end -%>
+  </select><br>
+
+  <%= submit_tag("Load") %>
 <% end %>
