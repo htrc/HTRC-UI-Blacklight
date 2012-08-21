@@ -1,16 +1,19 @@
 BlacklightHtrc::Application.routes.draw do
   my_draw = Proc.new do
     resources :catalog, :only => [:index, :show, :update], :id => %r([^/;,?]+)
+    resources :folder, :only => [:index, :show, :update, :destroy], :id => %r([^/;,?]+)
 
     root :to => "catalog#index"
   
     Blacklight.add_routes(self)
     
-    # Add support for periods in ids and select_all routes
-    resources :catalog, :only => [:index, :show, :update], :id => /.+/
-    resources :folder, :only => [:index, :show, :update], :id => /.+/
+    # Add support for select_all routes
     resources :select_all, :only => [:index, :update], :as => "select_all"
     match "select_all/clear", :to => "select_all#clear"
+
+    # Add support for export to registry
+    #resources :registry, :only => [:export]
+    #match "registry/export", :to => "registry#export"
   
     devise_for :users
   
