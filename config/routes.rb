@@ -12,8 +12,9 @@ BlacklightHtrc::Application.routes.draw do
     match "select_all/clear", :to => "select_all#clear"
 
     # Add support for export to registry
-    #resources :registry, :only => [:export]
-    #match "registry/export", :to => "registry#export"
+    resources :registry, :only => [:index, :export]
+    match "registry/export", :to => "registry#export"
+    match "registry/export", :as => "registry_export"
   
     devise_for :users
   
