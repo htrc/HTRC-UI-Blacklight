@@ -57,22 +57,26 @@ logger.debug "#{key} #{session[key]}"
     
     # Key used to store whether the select all checkbox is checked for the specified query
     key = get_select_all_query_key
-    session[key] = false
-    logger.debug "Key = #{key}; Select All = #{session[key]}"
 
     # Get the list of currently selected ids
     selected = session[:folder_document_ids]
 
-    # Get the list of ids for the current query
-    ids = get_ids_for_query()
+    if session[key] 
+    
+       # Get the list of ids for the current query
+       ids = get_ids_for_query()
  
-    # Remove all ids for the current query from the list of selected ids
-    for id in ids
-       if (!selected.nil? && selected.include?(id))
-          #logger.debug "Removing #{id} from selected items"
-          session[:folder_document_ids].delete(id)
+       # Remove all ids for the current query from the list of selected ids
+       for id in ids
+          if (!selected.nil? && selected.include?(id))
+             #logger.debug "Removing #{id} from selected items"
+             session[:folder_document_ids].delete(id)
+          end
        end
     end
+
+    session[key] = false
+    logger.debug "Key = #{key}; Select All = #{session[key]}"
 
     respond_to do |format|
         format.json { render :json => { :count => session[:folder_document_ids].length  } }

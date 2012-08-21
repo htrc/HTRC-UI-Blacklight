@@ -5,7 +5,7 @@
 
       $("#loading").hide();
 
-      function select_all(url) {
+      function select_all(url, checked) {
           $("#loading").show();
           $.ajax({
               url: url,
@@ -47,7 +47,7 @@
               if (checked) {
                  if (total > 100000) {
                     alert("Too many results. Please narrow your search.");
-                    return;
+                    return false;
                  }
                  else if (total > 10000) {
                     var $dialog = $('<div></div>')
@@ -60,7 +60,7 @@
                                cancel = false;
                                $('#selectall').attr('checked', true);
                                $(this).dialog("close");
-                               select_all(url);
+                               select_all(url, checked);
                             },
                             "Cancel" : function() {
                                $('#selectall').attr('checked', false);
@@ -71,10 +71,10 @@
                      });
                      $dialog.dialog("open");
                  } else {
-                   return select_all(url);
+                   return select_all(url, checked);
                  }
              } else {
-                 return select_all(url);
+                 return select_all(url, checked);
              }
          });          
      };
