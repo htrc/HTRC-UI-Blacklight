@@ -1,7 +1,7 @@
 BlacklightHtrc::Application.routes.draw do
   my_draw = Proc.new do
-    resources :catalog, :only => [:index, :show, :update], :id => %r([^/;,?]+)
-    resources :folder, :only => [:index, :show, :update, :destroy], :id => %r([^/;,?]+)
+    resources :catalog, :only => [:index, :show, :update], :id => %r([^;,?]+)
+    resources :folder, :only => [:index, :show, :update, :destroy], :id => %r([^;,?]+)
 
     root :to => "catalog#index"
   
