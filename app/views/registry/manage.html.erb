@@ -1,0 +1,37 @@
+<h2>Manage Collections</h2>
+  <%- if !@collections.nil? && @collections.length > 0 -%>
+
+   <div id="openCollection" style="margin-left: 20px">
+     <%= form_tag(:controller => "registry", :action => "load") do %> 
+       <select id="col" name="col">
+         <%- @collections.each do |collection| -%>
+           <option id="<%= collection['id'] %>" value="<%= collection['id'] %>"><%= collection["name"] %></option>
+         <%- end -%>
+       </select>
+   
+       <%= submit_tag("Open") %>
+     <% end %>
+   </div>
+
+<!--
+     <hr align="left" style="margin-top: 30px; border 1px solid black; width: 200px; "/>
+    
+   <%= form_tag(:controller => "registry", :action => "remove") do %> 
+     <h3>Remove a collection</h3>
+
+     <select id="col" name="col">
+       <%- @collections.each do |collection| -%>
+           <option id="<%= collection['id'] %>" value="<%= collection['id'] %>"><%= collection["name"] %></option>
+       <%- end -%>
+     </select>
+   
+     <%= submit_tag("Remove") %>
+   <% end %>
+
+-->
+
+
+  <%- else -%> 
+     No collections
+  <%- end -%>
+

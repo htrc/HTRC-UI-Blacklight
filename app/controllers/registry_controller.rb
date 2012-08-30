@@ -28,28 +28,42 @@ class RegistryController < ApplicationController
   helper CatalogHelper
 
   def index
-      token = login
+      #token = login
+      token = session[:token]
       @collections = list_collections(token)
       session[:collections] = @collections
   end
 
+  def manage
+      #token = login
+      token = session[:token]
+      @collections = list_collections(token)
+      session[:collections] = @collections
+  end
 
   def load
       logger.debug "load"
-      token = login
+      #token = login
+      token = session[:token]
 
       id = Integer(params[:col]) - 1
       collection = session[:collections][id] 
       name = collection["name"]
-      ids = get_collection (token, name)
+      ids = get_collection(token, name)
 
       session[:folder_document_ids] = ids
+
+      respond_to do |format|
+         format.html { redirect_to :back }
+         format.js { render :json => session[:folder_document_ids] }
+      end
   end
 
   def export
       logger.debug "export"
 
-      token = login
+      #token = login
+      token = session[:token]
    
       if params[:col] != nil
           id = Integer(params[:col]) - 1
@@ -68,35 +82,36 @@ class RegistryController < ApplicationController
       end
   end
 
-  def login 
-      url = URI.parse('http://chinkapin.pti.indiana.edu:9000/agent/login')
-
-      http = Net::HTTP.new(url.host, url.port)
-      http.set_debug_output($stdout)
-
-      request = Net::HTTP::Put.new(url.path)
-      request.body = "<?xml version='1.0' encoding='UTF-8'?>" + 
-                     "<credentials>" + 
-                     "<username>willis8</username>" + 
-                     "<password>l0ngPassw0rd</password>" + 
-                     "</credentials>";
-
-      request["Content-Type"] = "text/xml"
-      response = http.request(request)
-      logger.debug "Response Code: #{response.code}"
-
-      xml = response.body
-      logger.debug "Response Body: #{xml}"
-
-      doc = REXML::Document.new(xml)
-      token = doc.elements["/agent/token"][0]
-      logger.debug "Token: #{token}"
-
-      return token
-  end
+  #def login 
+  ##    url = URI.parse('http://chinkapin.pti.indiana.edu:9000/agent/login')
+#
+#      http = Net::HTTP.new(url.host, url.port)
+#      http.set_debug_output($stdout)
+#
+#      request = Net::HTTP::Put.new(url.path)
+#      request.body = "<?xml version='1.0' encoding='UTF-8'?>" + 
+#                     "<credentials>" + 
+#                     "<username>willis8</username>" + 
+#                     "<password>l0ngPassw0rd</password>" + 
+#                     "</credentials>";
+#
+#      request["Content-Type"] = "text/xml"
+#      response = http.request(request)
+#      logger.debug "Response Code: #{response.code}"
+#
+#      xml = response.body
+#      logger.debug "Response Body: #{xml}"
+#
+#      doc = REXML::Document.new(xml)
+#      token = doc.elements["/agent/token"][0]
+#      logger.debug "Token: #{token}"
+#
+#      return token
+#  end
 
   def list_collections (token)
       logger.debug "list_collections #{token}"
+      logger.debug "current_user #{current_user}"
 
       # GET root/agent/collection/list
       # <collections>
@@ -136,9 +151,12 @@ class RegistryController < ApplicationController
              hash[key] = value
              logger.debug "\t#{key}, #{value}"
           end
-          hash['id'] = id
-          id = id+1
-          collections << hash
+
+          if (current_user.email == hash['owner'])
+             hash['id'] = id
+             id = id+1
+             collections << hash
+          end
       end
       return collections
   end
@@ -237,8 +255,6 @@ logger.debug "Request: #{request.body}"
 
      #doc = REXML::Document.new(xml)
      logger.debug xml
-
   end
-  
 
 end
