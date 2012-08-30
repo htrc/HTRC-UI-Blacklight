@@ -4,4 +4,9 @@
 en:
   blacklight:
     tools:
-      registry: 'Export to Registry'
+      save_collection: 'Create/Update Collection'
+
+    application_name: 'HTRC Collections'
+
+    header_links:
+      open_collection: 'Manage Collections'
