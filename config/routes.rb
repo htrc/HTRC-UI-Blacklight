@@ -1,4 +1,6 @@
 BlacklightHtrc::Application.routes.draw do
+  devise_for :users
+
   my_draw = Proc.new do
     resources :catalog, :only => [:index, :show, :update], :id => %r([^;,?]+)
     resources :folder, :only => [:index, :show, :update, :destroy], :id => %r([^;,?]+)
@@ -12,13 +14,13 @@ BlacklightHtrc::Application.routes.draw do
     match "select_all/clear", :to => "select_all#clear"
 
     # Add support for export to registry
-    resources :registry, :only => [:index, :export, :load]
-    match "registry/export", :to => "registry#export"
-    match "registry/export", :as => "registry_export"
-    match "registry/load", :to => "registry#load"
-    match "registry/load", :as => "registry_load"
-  
-    devise_for :users
+    resources :registry, :only => [:index, :export, :load, :manage, :remove]
+    match "registry/export", :to => "registry#export", :as => "registry_export"
+    match "registry/manage", :to => "registry#manage", :as => "registry_manage"
+    match "registry/load", :to => "registry#load", :as => "registry_load"
+    match "registry/remove", :to => "registry#remove", :as => "registry_remove"
+
+    match "folder/clear", :to => "folder#clear", :as => "clear_folder"
   
     # The priority is based upon order of creation:
     # first created -> highest priority.
