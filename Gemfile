@@ -42,5 +42,6 @@ gem 'blacklight'
 gem 'therubyracer'
 
 gem "devise"
+gem "warden"
 gem "compass-rails", "~> 1.0.0", :group => :assets
 gem "compass-susy-plugin", "~> 0.9.0", :group => :assets
