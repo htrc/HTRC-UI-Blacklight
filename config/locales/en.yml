@@ -10,3 +10,11 @@ en:
 
     header_links:
       open_collection: 'Manage Collections'
+
+    registry:
+       load:
+          success: 'Collection "%{name}" opened'
+       create:
+          success: 'Collection "%{name}" created'
+       update:
+          success: 'Collection "%{name}" updated'
