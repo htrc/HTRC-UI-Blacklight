@@ -1,12 +1,21 @@
 BlacklightHtrc::Application.routes.draw do
   devise_for :users
+  as :user do
+    get 'blacklight/signin' => 'devise/sessions#new', :as => :new_user_session
+    post 'blacklight/signin' => 'devise/sessions#create', :as => :user_session
+    get 'blacklight/signout' => 'devise/sessions#destroy', :as => :destroy_user_session
+    delete 'blacklight/signout' => 'devise/sessions#destroy', :as => :destroy_user_session
+  end
 
   my_draw = Proc.new do
+    #fix problem with facet route not working...there may be other problems with routes with /
+    match "catalog/facet/:id", :to => 'catalog#facet', :as => 'catalog_facet'
+    #this is indented to support routes with . and /
     resources :catalog, :only => [:index, :show, :update], :id => %r([^;,?]+)
     resources :folder, :only => [:index, :show, :update, :destroy], :id => %r([^;,?]+)
 
+    #default blacklight statements - should this be first?
     root :to => "catalog#index"
-  
     Blacklight.add_routes(self)
     
     # Add support for select_all routes
