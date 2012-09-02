@@ -30,6 +30,24 @@ h1.site_title a:link,h1.site_title a:visited,h1.site_title a:hover,h1.site_title
 	border:0;
 }
 
+#user_util_links
+{
+	color:#EEEEEE;
+	font-family: Arial;
+	font-size:12.2333px;
+	height: 19px;
+	width: 123px;
+	a
+	{
+		color:#EEEEEE;
+	}
+}
+
+span.highlight
+{
+	background-color:#494949;
+}
+
 h2.search
 {
 	display:inline;
