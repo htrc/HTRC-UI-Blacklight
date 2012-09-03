@@ -11,9 +11,9 @@ $field_name_color: #888;
 #appliedParams
 {
 	background-color:$search_ui_bg_color;
-	border-bottom:1px solid $search_ui_border_color;
-	border-left:1px solid $search_ui_border_color;
-	border-right:1px solid $search_ui_border_color;
+//	border-bottom:1px solid $search_ui_border_color;
+//	border-left:1px solid $search_ui_border_color;
+//	border-right:1px solid $search_ui_border_color;
 	margin-bottom:1.5em;
 	padding:1em 0.66em 0 1em;
 
@@ -60,10 +60,7 @@ $field_name_color: #888;
 	width:700px;
 }
 
-#page
-{
-	width: 100%;
-}
+
 
 #marc_view
 {
@@ -110,9 +107,10 @@ $field_name_color: #888;
 #search
 {
   //@include border-radius(4px 4px 0 0);
-	border:1px solid $search_ui_border_color;
+//	border:1px solid $search_ui_border_color;
 	font-size:120%;
-	padding:0.66em;
+//	padding:0.66em;
+	padding: 0.66em 0.66em 0.66em 0em;
 	text-align:left;
 
   #q
@@ -458,3 +456,16 @@ span.page.current
 	text-decoration:none;
 }
 
+
+#page
+{
+	width: 100%;
+}
+
+
+.resultPage
+{
+	border:1px solid $search_ui_border_color;
+	padding: 15px 15px 15px 15px;
+	width: 80%;
+}
