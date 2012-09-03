@@ -2,8 +2,10 @@ $search_ui_bg_color: #DBDBDB;
 $search_ui_border_color: #AAAAAA;
 $marc_item_separator: 1px solid #CCC;
 $dotted_border_color: #CCC;
-$constraint_bg_color: #E2EDFE;
-$constraint_border_color: #C4DAFE;
+//$constraint_bg_color: #E2EDFE;
+//$constraint_border_color: #C4DAFE;
+$constraint_bg_color: #EEEEEE;
+$constraint_border_color: #CCCCCC;
 $constraint_border_active_color: #FFD27A;
 $page_bg_color: #2E4F81;
 $field_name_color: #888;
@@ -469,3 +471,5 @@ span.page.current
 	padding: 15px 15px 15px 15px;
 	width: 80%;
 }
+
+
