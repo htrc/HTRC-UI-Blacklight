@@ -4,7 +4,8 @@ require 'blacklight/catalog'
 class CatalogController < ApplicationController  
 
   include Blacklight::Catalog
-
+  include BlacklightAdvancedSearch::ParseBasicQ
+  
   configure_blacklight do |config|
     config.default_solr_params = { 
       #:qt => 'search',
@@ -13,7 +14,9 @@ class CatalogController < ApplicationController
       :q => '*:*',
       :'q.alt' => '*:*',
       :facet => 'true',
-      :'facet.mincount' => 1
+      :'facet.mincount' => 1,
+      :'facet.limit' => 20,
+      :echoParams => 'all'
     }
 
     ## Default parameters to send on single-document requests to Solr. These settings are the Blackligt defaults (see SolrHelper#solr_doc_params) or 
@@ -54,12 +57,13 @@ class CatalogController < ApplicationController
     # on the solr side in the request handler itself. Request handler defaults
     # sniffing requires solr requests to be made with "echoParams=all", for
     # app code to actually have it echo'd back to see it.  
-    config.add_facet_field 'format', :label => 'Format', :limit => 20
-    config.add_facet_field 'era', :label => 'Era', :limit => 20
-    config.add_facet_field 'publishDate', :label => 'Year', :limit => 20
-#    config.add_facet_field 'topic', :label => 'Topic', :limit => 20 
-    config.add_facet_field 'language', :label => 'Language', :limit => 20
-    config.add_facet_field 'htsource', :label => 'Source', :limit => 20
+    config.add_facet_field 'format', :label => 'Format', :limit => true
+    config.add_facet_field 'era', :label => 'Era', :limit => true
+    config.add_facet_field 'publishDate', :label => 'Year', :limit => true
+    config.add_facet_field 'topicStr', :label => 'Subject', :limit => true
+    config.add_facet_field 'language', :label => 'Language', :limit => true
+    config.add_facet_field 'htsource', :label => 'Source', :limit => true
+    config.add_facet_field 'genreStr', :label => 'Original Format', :limit => true
     #config.add_facet_field 'topic', :label => 'Topic', :limit => 20 
     #config.add_facet_field 'language_facet', :label => 'Language', :limit => true 
     #config.add_facet_field 'lc_1letter_facet', :label => 'Call Number' 
@@ -89,8 +93,8 @@ class CatalogController < ApplicationController
     config.add_index_field 'language', :label => 'Language:'
     config.add_index_field 'publishDate', :label => 'Published:'
     #config.add_index_field 'published_vern_display', :label => 'Published:'
-    config.add_index_field 'callnosort', :label => 'Call number:'
-    config.add_index_field 'ht_availability', :label =>'Availability:'
+    #config.add_index_field 'callnosort', :label => 'Call number:'
+    #config.add_index_field 'ht_availability', :label =>'Availability:'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
@@ -122,13 +126,14 @@ class CatalogController < ApplicationController
     config.add_show_field 'language', :label => 'Language:'
     config.add_show_field 'publishDate', :label => 'Published:'
     #config.add_show_field 'published_vern_display', :label => 'Published:'
+    config.add_show_field 'countryOfPubStr', :label => 'Country:'
     config.add_show_field 'callnumber', :label => 'Call number:'
     config.add_show_field 'isbn', :label => 'ISBN:'
     config.add_show_field 'oclc', :label => 'OCLC'
     config.add_show_field 'issn', :label => 'ISSN:'
     config.add_show_field 'htsource', :label=> 'Source:'
     config.add_show_field 'ht_availability', :label =>'Availability:'
-
+    config.add_show_field 'id', :label =>'Volume ID:'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -148,7 +153,7 @@ class CatalogController < ApplicationController
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise. 
     
-    config.add_search_field 'all_fields', :label => 'All Fields'
+    config.add_search_field 'all_fields', :label => 'Full Text'
     
 
     # Now we see how to over-ride Solr request handler defaults, in this
@@ -177,27 +182,34 @@ class CatalogController < ApplicationController
         :qf => 'author'
       }
     end
-    
+
     # Specifying a :qt only to show it's possible, and so our internal automated
     # tests can test it. In this case it's the same as 
     # config[:default_solr_parameters][:qt], so isn't actually neccesary. 
-#    config.add_search_field('subject') do |field|
-#      field.solr_parameters = { :'spellcheck.dictionary' => 'subject', :defType => 'dismax' }
-#      field.qt = 'search'
-#      field.solr_local_parameters = { 
+    config.add_search_field('subject') do |field|
+      field.solr_parameters = { :'spellcheck.dictionary' => 'subject', :defType => 'dismax', :'q.alt' => '*:*' }
+      field.solr_local_parameters = { 
 #        :qf => '$subject_qf',
 #        :pf => '$subject_pf'
-#        :qf => 'topic'
-#      }
-#    end
+        :qf => 'topic'
+      }
+    end
 
+    config.add_search_field('publishDate') do |field|
+      field.solr_parameters = { :defType => 'dismax', :'q.alt' => '*:*' }
+      field.include_in_simple_select = false
+      field.solr_local_parameters = {
+        :qf => 'publishDateTrie'
+      }
+    end
+    
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
     config.add_sort_field 'score desc, titleSort asc', :label => 'relevance'
     #config.add_sort_field 'publishDate desc, title asc', :label => 'year'
-    config.add_sort_field 'callnosort asc, titleSort asc', :label => 'call number'
+    #config.add_sort_field 'callnosort asc, titleSort asc', :label => 'call number'
     config.add_sort_field 'titleSort asc', :label => 'title'
 
     # If there are more than this many search results, no spelling ("did you 

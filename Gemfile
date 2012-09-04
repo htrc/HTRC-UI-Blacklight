@@ -45,3 +45,5 @@ gem "devise"
 gem "warden"
 gem "compass-rails", "~> 1.0.0", :group => :assets
 gem "compass-susy-plugin", "~> 0.9.0", :group => :assets
+#advanced search
+gem "blacklight_advanced_search"
