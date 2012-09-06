@@ -5,7 +5,7 @@
      <%= form_tag(:controller => "registry", :action => "load") do %> 
        <select id="col" name="col">
          <%- @collections.each do |collection| -%>
-           <option id="<%= collection['id'] %>" value="<%= collection['id'] %>"><%= collection["name"] %></option>
+           <option id="<%= collection['id'] %>" value="<%= collection['id'] %>"><%= collection["name"] %> (Owner: <%= collection["owner"] %>) </option>
          <%- end -%>
        </select>
    
@@ -21,7 +21,11 @@
 
      <select id="col" name="col">
        <%- @collections.each do |collection| -%>
-           <option id="<%= collection['id'] %>" value="<%= collection['id'] %>"><%= collection["name"] %></option>
+           <option id="<%= collection['id'] %>" value="<%= collection['id'] %>">
+              <%= collection["name"] %>
+              (Owner: <%= collection["owner"] %>, 
+              Availability: <%= collection["availability"] %>)
+           </option>
        <%- end -%>
      </select>
    

@@ -37,7 +37,7 @@ class RegistryController < ApplicationController
   def manage
       #token = login
       token = session[:token]
-      @collections = list_collections(token)
+      @collections = list_public_collections(token)
       session[:collections] = @collections
   end
 
@@ -73,6 +73,8 @@ class RegistryController < ApplicationController
           avail = collection["availability"]
           tags = collection["tags"]
           modify_collection(token, name, desc, avail, tags)    
+
+logger.debug "export #{id} #{collection}#{name} #{desc} #{avail} #{tags}" 
 
           respond_to do |format|
              format.html { redirect_to "/blacklight/folder", :notice =>  I18n.t('blacklight.registry.update.success', :name => name) }
@@ -223,7 +225,7 @@ logger.debug "IDS: #{ids.inspect}"
      #get_collection(token, name)
 
      #encoded = URI::encode(name)
-     #url = "http://chinkapin.pti.indiana.edu:9000/agent/modify/collection/#{encoded}"
+     #url = "http://chinkapin.pti.indiana.edu:9000/agent/modify/collection"
      url = "http://chinkapin.pti.indiana.edu:9000/agent/modify/collection"
      create_modify_collection(url, token, name, desc, avail, tags)
   
@@ -268,4 +270,39 @@ logger.debug "Request: #{request.body}"
      logger.debug xml
   end
 
+  def list_public_collections (token)
+      logger.debug "list_collections #{token}"
+
+      url = URI.parse('http://chinkapin.pti.indiana.edu:9000/agent/collection/list')
+
+      http = Net::HTTP.new(url.host, url.port)
+      http.set_debug_output($stdout)
+
+      request = Net::HTTP::Get.new(url.path)
+      request.add_field("Authorization", "Bearer #{token}")
+      response = http.request(request)
+      logger.debug "Response Code: #{response.code}"
+
+      xml = response.body
+
+      collections = Array.new
+      doc = REXML::Document.new(xml)
+      id=1
+      doc.elements.each("/collections/collection_properties/") do |col|
+          hash = Hash.new
+          col.elements.each("e") do |element| 
+             key = element.attributes["key"]
+             value = element.text
+             hash[key] = value
+             logger.debug "\t#{key}, #{value}"
+          end
+
+          if (hash['availability'] == "public")
+             hash['id'] = id
+             id = id+1
+             collections << hash
+          end
+      end
+      return collections
+  end
 end
