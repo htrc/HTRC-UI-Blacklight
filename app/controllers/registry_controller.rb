@@ -54,7 +54,7 @@ class RegistryController < ApplicationController
       session[:folder_document_ids] = ids
 
       respond_to do |format|
-         format.html { redirect_to "/folder", :notice =>  I18n.t('blacklight.registry.load.success', :name => name) }
+         format.html { redirect_to "/blacklight/folder", :notice =>  I18n.t('blacklight.registry.load.success', :name => name) }
          format.js { render :json => session[:folder_document_ids] }
       end
   end
@@ -75,7 +75,7 @@ class RegistryController < ApplicationController
           modify_collection(token, name, desc, avail, tags)    
 
           respond_to do |format|
-             format.html { redirect_to "/folder", :notice =>  I18n.t('blacklight.registry.update.success', :name => name) }
+             format.html { redirect_to "/blacklight/folder", :notice =>  I18n.t('blacklight.registry.update.success', :name => name) }
              format.js { render :json => session[:folder_document_ids] }
           end
       else
@@ -86,7 +86,7 @@ class RegistryController < ApplicationController
           create_collection(token, name, desc, avail, tags)    
 
           respond_to do |format|
-             format.html { redirect_to "/folder", :notice =>  I18n.t('blacklight.registry.create.success', :name => name) }
+             format.html { redirect_to "/blacklight/folder", :notice =>  I18n.t('blacklight.registry.create.success', :name => name) }
              format.js { render :json => session[:folder_document_ids] }
           end
 
