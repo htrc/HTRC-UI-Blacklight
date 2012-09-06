@@ -195,7 +195,6 @@ class CatalogController < ApplicationController
       }
     end
 
-<<<<<<< .mine
     config.add_search_field('publishDate') do |field|
       field.solr_parameters = { :defType => 'dismax', :'q.alt' => '*:*' }
       field.include_in_simple_select = false
@@ -208,16 +207,6 @@ class CatalogController < ApplicationController
       :qt => 'sharding'
     }
     
-=======
-    config.add_search_field('publishDate') do |field|
-      field.solr_parameters = { :defType => 'dismax', :'q.alt' => '*:*' }
-      field.include_in_simple_select = false
-      field.solr_local_parameters = {
-        :qf => 'publishDateTrie'
-      }
-    end
-    
->>>>>>> .r2732
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
