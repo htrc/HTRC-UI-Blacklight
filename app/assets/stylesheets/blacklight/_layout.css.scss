@@ -8,8 +8,8 @@ $background_image: 'blacklight/bg.png';
 /* Global */
 body 
 {
-  background: asset_url($background_image,image) repeat-x top left; 
-  background-color: #707070;
+ // background: asset_url($background_image,image) repeat-x top left; 
+ // background-color: #707070;
   font: 0.7em Verdana, "Lucida Grande", "Lucida Sans Unicode", "Arial Unicode MS", Arial, sans-serif; 
   line-height: 1.4; 
   margin: 0px; 
