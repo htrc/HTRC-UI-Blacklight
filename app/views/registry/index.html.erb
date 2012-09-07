@@ -10,7 +10,7 @@
           <%- end -%>
         </select> <%= submit_tag("Update") %>
      </div>
-     <hr align="left" style="margin-top: 30px; border 1px solid black; width: 200px; "/>
+     <hr align="left" style="margin-top: 30px; border 1px solid black; width: 440px; "/>
    <%- end -%> 
 <% end %>
 
@@ -18,12 +18,33 @@
    table, th, td { 
       border: 0px
    }
+   #n, #d, #tags {
+      width:300px;
+   }
 </style>
-<%= form_tag(:controller => "registry", :action => "export") do %> 
+<script>
+   function validate() {
+      var name = document.getElementById('n');
+      var re = /^\w+$/;
+      if (name.value == "") {
+         alert("Collection name is required.");
+         return false;
+      } 
+      else if (!re.test(name.value)) {
+         alert("Collection name can only contain the characters A-Z, 0-9, and _.");
+         return false;
+      }
+      else { 
+         return true;
+      }
+   }
+</script>
+<%= form_tag({:controller => "registry", :action => "export"} , { :onSubmit => 'return validate()'} ) do %> 
   <h3>Create a new Collection</h3>
   <div id="createCollection" style="margin-left: 20px">
      <table>
-        <tr><td><%= label_tag(:n, "Name:") %></td><td><%= text_field_tag(:n) %></td></tr>
+        <tr><td><%= label_tag(:n, "Name:") %>*</td><td><%= text_field_tag(:n) %></td></tr>
+        <tr><td>&nbsp;</td><td><font style="font-style: italic; font-size: 10px">Only characters A-Z, 0-9, or _ allowed.</font> </td></tr>
         <tr><td><%= label_tag(:d, "Description:") %></td><td><%= text_field_tag(:d) %></td></tr>
         <tr><td><%= label_tag(:a, "Availability:") %></td><td>
         <%= select_tag(:a, options_for_select([['Public', 'public'], ['Private', 'private']], 2)) %></td></tr>
