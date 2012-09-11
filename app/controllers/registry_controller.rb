@@ -297,7 +297,7 @@ logger.debug "Request: #{request.body}"
              logger.debug "\t#{key}, #{value}"
           end
 
-          if (hash['availability'] == "public")
+          if (hash['availability'] == "public" || current_user.email == hash['owner'])
              hash['id'] = id
              id = id+1
              collections << hash
