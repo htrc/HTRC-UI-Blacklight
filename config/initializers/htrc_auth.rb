@@ -53,15 +53,20 @@ puts "PARAMS: #{params}"
 
         request["Content-Type"] = "text/xml"
         response = http.request(request)
+        
         puts "Response Code: #{response.code}"
   
-        xml = response.body
-        puts "Response Body: #{xml}"
+        if (response.code == "200")
+           xml = response.body
+           puts "Response Body: #{xml}"
   
-        doc = REXML::Document.new(xml)
-        token = doc.elements["/agent/token"][0]
-        puts "Token: #{token}"
-        return token
+           doc = REXML::Document.new(xml)
+           token = doc.elements["/agent/token"][0]
+           puts "Token: #{token}"
+           return token
+       else
+           return nil
+       end
   
       end
 
