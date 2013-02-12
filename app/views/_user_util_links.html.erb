@@ -1,9 +1,8 @@
 <% if has_user_authentication_provider? %>
   <% if current_user%>
-    <%= link_to t('blacklight.header_links.logout'), destroy_user_session_path %> [<%= link_to current_user, edit_user_registration_path %>]
+    <%= link_to t('blacklight.header_links.logout'), destroy_user_session_path %> [<%= current_user %>]
   <% else %>
-    <%= link_to t('blacklight.header_links.login'), new_user_session_path %>
-
+    <%= link_to t('blacklight.header_links.login'), user_omniauth_authorize_path(:wso2)  %>
   <% end %>
 | 
 <% end %>

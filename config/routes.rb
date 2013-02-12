@@ -1,11 +1,17 @@
 BlacklightHtrc::Application.routes.draw do
-  devise_for :users
-  as :user do
-    get 'blacklight/signin' => 'devise/sessions#new', :as => :new_user_session
-    post 'blacklight/signin' => 'devise/sessions#create', :as => :user_session
-    get 'blacklight/signout' => 'devise/sessions#destroy', :as => :destroy_user_session
-    delete 'blacklight/signout' => 'devise/sessions#destroy', :as => :destroy_user_session
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_scope :user do
+    get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
+    get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
+
+  #as :user do
+  #  get 'blacklight/signin' => 'devise/sessions#new', :as => :new_user_session
+  #  post 'blacklight/signin' => 'devise/sessions#create', :as => :user_session
+  #  get 'blacklight/signout' => 'devise/sessions#destroy', :as => :destroy_user_session
+  #  delete 'blacklight/signout' => 'devise/sessions#destroy', :as => :destroy_user_session
+  #end
 
   my_draw = Proc.new do
     #fix problem with facet route not working...there may be other problems with routes with /

@@ -47,3 +47,7 @@ gem "compass-rails", "~> 1.0.0", :group => :assets
 gem "compass-susy-plugin", "~> 0.9.0", :group => :assets
 #advanced search
 gem "blacklight_advanced_search"
+gem "omniauth"
+gem "omniauth-oauth2"
+gem "rest-client"
+gem "multi_json"
