@@ -1,0 +1,29 @@
+development: 
+   agent_url: 'https://htrc1.pti.indiana.edu:9443/agent'
+   site_url:  'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
+   authorize_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
+   access_token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
+   token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
+   userinfo_url: 'https://htrc3.pti.indiana.edu:9443/oauth2userinfo/userinfo'
+   oauth2_client_id: 'wDGBiQAkRRpuCmC8vfCSJYvobika'
+   oauth2_secret: 'cvTJHYT34irYQXAxDaXglXuoFXsa' 
+
+test: 
+   agent_url: 'https://htrc1.pti.indiana.edu:9443/agent'
+   site_url:  'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
+   authorize_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
+   access_token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
+   token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
+   userinfo_url: 'https://htrc3.pti.indiana.edu:9443/oauth2userinfo/userinfo'
+   oauth2_client_id: 'wDGBiQAkRRpuCmC8vfCSJYvobika'
+   oauth2_secret: 'cvTJHYT34irYQXAxDaXglXuoFXsa' 
+
+production:
+   agent_url: 'https://htrc1.pti.indiana.edu:9443/agent'
+   site_url:  'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
+   authorize_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
+   access_token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
+   token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
+   userinfo_url: 'https://htrc3.pti.indiana.edu:9443/oauth2userinfo/userinfo'
+   oauth2_client_id: 'wDGBiQAkRRpuCmC8vfCSJYvobika'
+   oauth2_secret: 'cvTJHYT34irYQXAxDaXglXuoFXsa' 

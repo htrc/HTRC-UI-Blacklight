@@ -27,6 +27,7 @@ class RegistryController < ApplicationController
 
   helper CatalogHelper
 
+
   def index
       #token = login
       token = session[:token]
@@ -96,7 +97,7 @@ logger.debug "export #{id} #{collection}#{name} #{desc} #{avail} #{tags}"
   end
 
   #def login 
-  ##    url = URI.parse('http://chinkapin.pti.indiana.edu:9000/agent/login')
+  ##    url = URI.parse('#{agent_url}/login')
 #
 #      http = Net::HTTP.new(url.host, url.port)
 #      http.set_debug_output($stdout)
@@ -141,7 +142,7 @@ logger.debug "export #{id} #{collection}#{name} #{desc} #{avail} #{tags}"
       #   </collection_properties>
       # </collections>"
 
-      url = URI.parse('http://chinkapin.pti.indiana.edu:9000/agent/collection/list')
+      url = URI.parse("#{APP_CONFIG['agent_url']}/collection/list")
 
       http = Net::HTTP.new(url.host, url.port)
       http.set_debug_output($stdout)
@@ -184,7 +185,7 @@ logger.debug "export #{id} #{collection}#{name} #{desc} #{avail} #{tags}"
      # </collection>
 
      encoded = URI::encode(name)
-     uri = "http://chinkapin.pti.indiana.edu:9000/agent/download/collection/#{encoded}"
+     uri = "#{APP_CONFIG['agent_url']}/download/collection/#{encoded}"
      url = URI.parse(uri)
 
      http = Net::HTTP.new(url.host, url.port)
@@ -214,7 +215,7 @@ logger.debug "IDS: #{ids.inspect}"
   def create_collection (token, name, desc, avail, tags)
      logger.debug "create_collection #{token}, #{name}, #{desc}, #{avail}, #{tags}"
 
-     url = "http://chinkapin.pti.indiana.edu:9000/agent/upload/collection"
+     url = "#{APP_CONFIG['agent_url']}/upload/collection"
 
      create_modify_collection( url, token, name, desc, avail, tags) 
   end
@@ -222,11 +223,7 @@ logger.debug "IDS: #{ids.inspect}"
   def modify_collection (token, name, desc, avail, tags)
      logger.debug "modify_collection #{token}, #{name}, #{desc}, #{avail}, #{tags}"
 
-     #get_collection(token, name)
-
-     #encoded = URI::encode(name)
-     #url = "http://chinkapin.pti.indiana.edu:9000/agent/modify/collection"
-     url = "http://chinkapin.pti.indiana.edu:9000/agent/modify/collection"
+     url = "#{APP_CONFIG['agent_url']}/modify/collection"
      create_modify_collection(url, token, name, desc, avail, tags)
   
   end
@@ -271,9 +268,9 @@ logger.debug "Request: #{request.body}"
   end
 
   def list_public_collections (token)
-      logger.debug "list_collections #{token}"
+      logger.debug "list_public_collections #{token}"
 
-      url = URI.parse('http://chinkapin.pti.indiana.edu:9000/agent/collection/list')
+      url = URI.parse("#{APP_CONFIG['agent_url']}/collection/list")
 
       http = Net::HTTP.new(url.host, url.port)
       http.set_debug_output($stdout)
