@@ -29,8 +29,8 @@ module OmniAuth
       }       
 
       uid { 
-       # raw_info['id'] 
-         raw_info['email'] 
+         # raw_info['id'] 
+         raw_info['authorized_user'] 
       }
 
       info do
@@ -52,7 +52,9 @@ module OmniAuth
          response = RestClient.post(APP_CONFIG['userinfo_url'], 
 	 	:access_token => access_token.token, :client_id => client.id, :client_secret => client.secret)
          user = MultiJson.decode(response.to_s)
-#Rails.logger.info("#{user.inspect}")
+
+         #Rails.logger.info("#{user.inspect}")
+ 
          @raw_info.merge!(user)
       end
     end
