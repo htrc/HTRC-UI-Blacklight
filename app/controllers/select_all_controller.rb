@@ -14,7 +14,7 @@ class SelectAllController < ApplicationController
   # Add all documents from the current query to the set of selected documents
   # /select_all handler: add all documents from the current query to the set of 
   # selected documents
-  def index()
+  def index
 
     # Key used to store whether the select all checkbox is checked for the specified query
     key = get_select_all_query_key
@@ -53,7 +53,7 @@ logger.debug "#{key} #{session[key]}"
 
 
   # Clear all selected IDs
-  def clear()
+  def clear
     
     # Key used to store whether the select all checkbox is checked for the specified query
     key = get_select_all_query_key
@@ -85,7 +85,7 @@ logger.debug "#{key} #{session[key]}"
   end
 
   # Run the current query and get only the ids from solr
-  def get_ids_for_query()
+  def get_ids_for_query
 
     ids = Array.new
 
@@ -114,7 +114,7 @@ logger.debug "#{key} #{session[key]}"
   
   # cwillis 8/17/2012 -- original implementation uses find directly, but 
   # has issues with the filters. To be deleted.
-  def get_ids_for_query2()
+  def get_ids_for_query2
 
     ids = Array.new
 
