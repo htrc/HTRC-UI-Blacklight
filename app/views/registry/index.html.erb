@@ -1,12 +1,12 @@
 <%= form_tag(:controller => "registry", :action => "export") do %> 
 
 
-  <%- if @collections.length > 0 -%> 
-     <h3>Update an existing collection</h3>
-     <div id="updateCollection" style="margin-left: 30px">
-        <select id="col" name="col">
-          <%- @collections.each do |collection| -%>
-              <option id="<%= collection['id'] %>" value="<%= collection['id'] %>"><%= collection["name"] %></option>
+  <%- if @worksets.length > 0 -%>
+     <h3>Update an existing workset</h3>
+     <div id="updateWorkset" style="margin-left: 30px">
+        <select id="ws" name="ws">
+          <%- @worksets.each do |workset| -%>
+              <option id="<%= workset['id'] %>" value="<%= workset['id'] %>"><%= workset["name"] %></option>
           <%- end -%>
         </select> <%= submit_tag("Update") %>
      </div>
@@ -27,11 +27,11 @@
       var name = document.getElementById('n');
       var re = /^\w+$/;
       if (name.value == "") {
-         alert("Collection name is required.");
+         alert("Workset name is required.");
          return false;
       } 
       else if (!re.test(name.value)) {
-         alert("Collection name can only contain the characters A-Z, 0-9, and _.");
+         alert("Workset name can only contain the characters A-Z, 0-9, and _.");
          return false;
       }
       else { 
@@ -40,8 +40,8 @@
    }
 </script>
 <%= form_tag({:controller => "registry", :action => "export"} , { :onSubmit => 'return validate()'} ) do %> 
-  <h3>Create a new Collection</h3>
-  <div id="createCollection" style="margin-left: 20px">
+  <h3>Create a new workset</h3>
+  <div id="createWorkset" style="margin-left: 20px">
      <table>
         <tr><td><%= label_tag(:n, "Name:") %>*</td><td><%= text_field_tag(:n) %></td></tr>
         <tr><td>&nbsp;</td><td><font style="font-style: italic; font-size: 10px">Only characters A-Z, 0-9, or _ allowed.</font> </td></tr>

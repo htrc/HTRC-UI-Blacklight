@@ -4,17 +4,17 @@
 en:
   blacklight:
     tools:
-      save_collection: 'Create/Update Collection'
+      save_workset: 'Create/Update Workset'
 
-    application_name: 'HTRC Collections'
+    application_name: 'HTRC Worksets'
 
     header_links:
-      open_collection: 'Manage Collections'
+      open_workset: 'Manage Worksets'
 
     registry:
        load:
-          success: 'Collection "%{name}" opened'
+          success: 'Workset "%{name}" opened'
        create:
-          success: 'Collection "%{name}" created'
+          success: 'Workset "%{name}" created'
        update:
-          success: 'Collection "%{name}" updated'
+          success: 'Workset "%{name}" updated'
