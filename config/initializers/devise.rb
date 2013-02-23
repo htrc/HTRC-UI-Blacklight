@@ -1,6 +1,6 @@
 require "omniauth/omniauth-wso2"
 
-APP_CONFIG = YAML.load_file("#{Rails.root}/config/htrc.yml")[Rails.env]
+
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
@@ -210,7 +210,12 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :wso2, APP_CONFIG['oauth2_client_id'], APP_CONFIG['oauth2_secret'], :strategy_class => OmniAuth::Strategies::WSO2, :client_options => {:site => APP_CONFIG['site_url'], :authorize_url => APP_CONFIG['authorize_url'], :access_token_url => APP_CONFIG['access_token_url'], :token_url => APP_CONFIG['token_url'], :ssl => {:verify => false }}
+  config.omniauth :wso2, APP_CONFIG['oauth2_client_id'], APP_CONFIG['oauth2_secret'],
+                  :strategy_class => OmniAuth::Strategies::WSO2,
+                  :client_options => {:site => APP_CONFIG['site_url'],
+                  :authorize_url => APP_CONFIG['authorize_url'],
+                  :access_token_url => APP_CONFIG['access_token_url'],
+                  :token_url => APP_CONFIG['token_url'], :ssl => {:verify => false }}
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
