@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid, :name
   # attr_accessible :title, :body
 
   # Method added by Blacklight; Blacklight uses #to_s on your
@@ -21,11 +21,11 @@ class User < ActiveRecord::Base
 
   def self.find_for_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
- logger.debug "DEBUG -> USER #{user}" 
     unless user
       user = User.create!(
                           :uid => auth.uid,
                           :email => auth.info.email,
+                          :name => auth.info.name,
                           :provider => auth.provider,
                           :password => Devise.friendly_token[0,20]
                    )
