@@ -36,9 +36,9 @@
  
               var checked = this.checked;
 
-              var url = '/blacklight/select_all';
+              var url = '/select_all';
               if (!checked) {
-                  url = '/blacklight/select_all/clear';
+                  url = '/select_all/clear';
               }
 
               var total = $("#select_all_total").val();
