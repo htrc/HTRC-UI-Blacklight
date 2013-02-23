@@ -13,8 +13,7 @@ class Registry
         "    <author>#{username}</author>" +
         #"    <availability>#{availability}</availability>" +
         "    <tags><tag>#{tags}</tag></tags>" +
-        "  </metadata>"+
-        "  <content>";
+        "  </metadata>"
 
     volumes_xml = "    <volumes>"
     for id in volume_ids
@@ -22,7 +21,7 @@ class Registry
     end
     volumes_xml += "</volumes>"
 
-    workset_xml += volumes_xml + " </workset>"
+    workset_xml += "<content> " + volumes_xml + "</content></workset>"
 
     url = URI.parse("#{APP_CONFIG['registry_url']}/worksets?user=#{username}")
     http = Net::HTTP.new(url.host, url.port)
