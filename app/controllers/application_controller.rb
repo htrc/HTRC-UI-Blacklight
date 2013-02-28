@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def get_header_params
+    if (request.env["HTTP_X_FORWARDED_FOR"])
      {:headers => {"X-Forwarded-For"=> request.env["HTTP_X_FORWARDED_FOR"]} }
+    else
+      {:headers => {"X-Forwarded-For"=> request.env["REMOTE_ADDR"]} }
+    end
   end
 
 end
