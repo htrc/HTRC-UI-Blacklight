@@ -5,4 +5,9 @@ class ApplicationController < ActionController::Base
   # these methods in order to perform user specific actions. 
 
   protect_from_forgery
+
+  def get_header_params
+     {:headers => {"X-Forwarded-For"=> request.env["HTTP_X_FORWARDED_FOR"]} }
+  end
+
 end
