@@ -30,15 +30,13 @@ module OmniAuth
       }       
 
       uid {
-         # Temporarily use authorized_user for everything
          # raw_info['id'] 
          raw_info['authorized_user'] 
       }
 
       info do {
-         # Temporarily use authorized_user for everything
-         :name => raw_info['authorized_user'],
-         :email => "#{raw_info['authorized_user']}@htrc.org"
+         :name => raw_info['user_fullname'],
+         :email => raw_info['user_email']
       }
       end
 
