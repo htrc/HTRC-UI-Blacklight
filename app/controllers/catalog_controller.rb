@@ -1,36 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'blacklight/catalog'
 
-
-module LocalSolrHelperExtension
-  extend ActiveSupport::Concern
-  include Blacklight::SolrHelper
-
-  #     [ local overrides ]
-
-  # a solr query method
-  # given a user query, return a solr response containing both result docs and facets
-  # - mixes in the Blacklight::Solr::SpellingSuggestions module
-  #   - the response will have a spelling_suggestions method
-  # Returns a two-element array (aka duple) with first the solr response object,
-  # and second an array of SolrDocuments representing the response.docs
-  def get_search_results(user_params = params || {}, extra_controller_params = {})
-
-    # In later versions of Rails, the #benchmark method can do timing
-    # better for us.
-    bench_start = Time.now
-
-    # Here's change.... Added get_header_params here
-    solr_response = find(blacklight_config.solr_request_handler, self.solr_search_params(user_params).merge(extra_controller_params), get_header_params)
-    document_list = solr_response.docs.collect {|doc| SolrDocument.new(doc, solr_response)}
-    Rails.logger.debug("Solr fetch: #{self.class}#get_search_results (#{'%.1f' % ((Time.now.to_f - bench_start.to_f)*1000)}ms)")
-
-    return [solr_response, document_list]
-  end
-
-end
-
-
 class CatalogController < ApplicationController
 
   include LocalSolrHelperExtension

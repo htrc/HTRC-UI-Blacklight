@@ -4,6 +4,7 @@
 # Controller for "Select All" checkbox
 #
 class SelectAllController < ApplicationController
+  include LocalSolrHelperExtension
   include Blacklight::Configurable
   include Blacklight::SolrHelper
 

@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class FolderController < ApplicationController
+  include LocalSolrHelperExtension
   include Blacklight::Configurable
   include Blacklight::SolrHelper
 
