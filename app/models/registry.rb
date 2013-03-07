@@ -1,7 +1,7 @@
 class Registry
 
   # Create or update a workset
-  def create_workset (username, workset_name, description, availability, tags, volume_ids)
+  def create_workset (username, token, workset_name, description, availability, tags, volume_ids)
     Rails.logger.debug("create_workset #{username}, #{workset_name}, #{description}, #{availability}, #{tags}")
 
     workset_xml =
@@ -23,7 +23,7 @@ class Registry
 
     workset_xml += "<content> " + volumes_xml + "</content></workset>"
 
-    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets?user=#{username}")
+    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets")
     http = Net::HTTP.new(url.host, url.port)
     http.set_debug_output($stdout)
     http.use_ssl = true
@@ -31,6 +31,7 @@ class Registry
 
     request = Net::HTTP::Post.new(url.request_uri)
     request["Content-Type"] = "application/vnd.htrc-workset+xml"
+    request.add_field("Authorization", "Bearer #{token}")
     request.body = workset_xml
 
     response = http.request(request)
@@ -40,7 +41,7 @@ class Registry
 
   end
 
-  def update_workset (username, workset_name, description, availability, tags)
+  def update_workset (username, token, workset_name, description, availability, tags)
     Rails.logger.debug("update_workset #{username}, #{workset_name}, #{description}, #{availability}, #{tags}")
 
     workset_xml =
@@ -55,7 +56,7 @@ class Registry
             "  </metadata>"+
             " </workset>"
 
-    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}?user=#{username}")
+    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}")
     http = Net::HTTP.new(url.host, url.port)
     http.set_debug_output($stdout)
     http.use_ssl = true
@@ -63,6 +64,7 @@ class Registry
 
     request = Net::HTTP::Put.new(url.request_uri)
     request["Content-Type"] = "application/vnd.htrc-workset+xml"
+    request.add_field("Authorization", "Bearer #{token}")
     request.body = workset_xml
 
     response = http.request(request)
@@ -73,7 +75,7 @@ class Registry
   end
 
   # Update volumes associated with the workset
-  def update_volumes(username, workset_name, volume_ids)
+  def update_volumes(username, token, workset_name, volume_ids)
 
     #<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     #<volumes xmlns="http://registry.htrc.i3.illinois.edu/entities/workset">
@@ -99,7 +101,7 @@ class Registry
     #   -H "Accept: application/vnd.htrc-volume+xml" \
     #   http://localhost:9763/ExtensionAPI-0.1.0/services/worksets/workset1/volumes?user=fred
 
-    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}/volumes?user=#{username}")
+    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}/volumes")
     http = Net::HTTP.new(url.host, url.port)
     http.set_debug_output($stdout)
     http.use_ssl = true
@@ -107,6 +109,7 @@ class Registry
 
     request = Net::HTTP::Put.new(url.request_uri)
     request["Content-Type"] = "application/vnd.htrc-volume+xml"
+    request.add_field("Authorization", "Bearer #{token}")
 
     request.body = volumes_xml
     response = http.request(request)
@@ -116,7 +119,7 @@ class Registry
   end
 
   # Create or update volumes associated with the workset
-  def create_update_volumes(username, workset_name, volume_ids)
+  def create_update_volumes(username, token, workset_name, volume_ids)
 
     #<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     #<volumes xmlns="http://registry.htrc.i3.illinois.edu/entities/workset">
@@ -142,7 +145,7 @@ class Registry
     #   -H "Accept: application/vnd.htrc-volume+xml" \
     #   http://localhost:9763/ExtensionAPI-0.1.0/services/worksets/workset1/volumes?user=fred
 
-    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}?user=#{username}")
+    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}")
     http = Net::HTTP.new(url.host, url.port)
     http.set_debug_output($stdout)
     http.use_ssl = true
@@ -150,6 +153,7 @@ class Registry
 
     request = Net::HTTP::Put.new(url.path)
     request["Content-Type"] = "application/vnd.htrc-volume+xml"
+    request.add_field("Authorization", "Bearer #{token}")
 
     request.body = volumes_xml
     response = http.request(request)
@@ -160,16 +164,17 @@ class Registry
 
 
   # List  worksets accessible by the specified user
-  def list_worksets (username)
+  def list_worksets (username, token)
     Rails.logger.debug "list_public_worksets #{username}"
 
-    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets?user=#{username}")
+    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets")
     http = Net::HTTP.new(url.host, url.port)
     http.set_debug_output($stdout)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     request = Net::HTTP::Get.new(url.request_uri)
+    request.add_field("Authorization", "Bearer #{token}")
     request.add_field("Accept", "application/vnd.htrc-workset+xml")
     response = http.request(request)
     Rails.logger.debug "Response Code: #{response.code}"
@@ -181,7 +186,8 @@ class Registry
 
     doc = REXML::Document.new(response_xml)
     id=1
-    doc.elements.each("/worksets/workset/metadata") { |metadata|
+
+    doc.elements.each('worksets/workset/metadata') { |metadata|
       hash = Hash.new
       hash['name'] = metadata.elements['name'].text
       hash['description'] = metadata.elements['description'].text
@@ -198,19 +204,20 @@ class Registry
 
 
   # Get the attributes of the specified workset
-  def get_workset  (username, workset_name)
+  def get_workset  (username, token, workset_name)
     Rails.logger.debug "get_workset  #{username}, #{workset_name}"
 
     #curl -v -X GET -H "Accept: application/vnd.htrc-workset+xml" \
     # http://localhost:9763/ExtensionAPI-0.1.0/services/worksets/workset1?user=fred
 
-    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}?user=#{username}")
+    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}")
     http = Net::HTTP.new(url.host, url.port)
     http.set_debug_output($stdout)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     request = Net::HTTP::Get.new(url.request_uri)
+    request.add_field("Authorization", "Bearer #{token}")
     request.add_field("Accept", "application/vnd.htrc-workset+xml")
     response = http.request(request)
     Rails.logger.debug "Response Code: #{response.code}"
@@ -233,15 +240,16 @@ class Registry
 
 
   # Get the volume IDs for the specified workset
-  def get_workset_volumes  (username, workset_name)
+  def get_workset_volumes  (username, token, workset_name)
     Rails.logger.debug "get_workset_volumes  #{username}, #{workset_name}"
-    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}/volumes?user=#{username}")
+    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}/volumes")
     http = Net::HTTP.new(url.host, url.port)
     http.set_debug_output($stdout)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     request = Net::HTTP::Get.new(url.request_uri)
+    request.add_field("Authorization", "Bearer #{token}")
     request.add_field("Accept", "application/vnd.htrc-workset+xml")
     response = http.request(request)
     Rails.logger.debug "Response Code: #{response.code}"
