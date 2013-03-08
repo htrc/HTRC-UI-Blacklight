@@ -18,3 +18,18 @@ en:
           success: 'Workset "%{name}" created'
        update:
           success: 'Workset "%{name}" updated'
+
+    folder:
+       all:
+          remove:
+             success: 'All items in this folder were successfully removed from this folder'
+       search:
+          add:
+             success: 'All items in this search were successfully selected'
+          remove:
+             success: 'All items in this search were successfully deselected'
+       page:
+          add:
+             success: 'All items on this page were successfully selected'
+          remove:
+             success: 'All items on this page were successfully deselected'

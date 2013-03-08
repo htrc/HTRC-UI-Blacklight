@@ -1,9 +1,15 @@
+    <div id="total_items" data-show="<%= @response.total %>"> </div>
     <ul class="folderTools">
         <li class="registry">
           <%= link_to t('blacklight.tools.save_workset'), registry_index_path()%>
         </li>
         <li>
-          <%= link_to t('blacklight.tools.clear'), clear_folder_path, :method => :delete %>
+          <%= link_to "Clear all items from folder", clear_folder_path, :id=>'remove-all-link' %>
+        </li>
+        <li>
+          <div id="loading" style="display: none">
+            <img src="/assets/blacklight/indicator.gif"></p>
+          </div>
         </li>
     </ul>
 

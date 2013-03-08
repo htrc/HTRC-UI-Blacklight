@@ -18,12 +18,20 @@ BlacklightHtrc::Application.routes.draw do
     match "catalog/facet/:id", :to => 'catalog#facet', :as => 'catalog_facet'
     #this is indented to support routes with . and /
     resources :catalog, :only => [:index, :show, :update], :id => %r([^;,?]+)
-    resources :folder, :only => [:index, :show, :update, :destroy], :id => %r([^;,?]+)
+    # resources :folder, :only => [:index, :show, :update, :destroy], :id => %r([^;,?]+)
+    resources :folder, :only => [:index, :update, :destroy], :id => %r([^;,?]+)
 
     #default blacklight statements - should this be first?
     root :to => "catalog#index"
     Blacklight.add_routes(self)
-    
+
+    # Add support for folder (i.e. collection) item gathering
+    match "folder/update/all_search", :to => "folder#update_all_search", :as => "folder_update_all_search"
+    match "folder/update/page", :to => "folder#update_page", :as => "folder_update_page"
+    match "folder/clear/all_search", :to => "folder#clear_all_search", :as => "folder_clear_all_search"
+    match "folder/clear/page", :to => "folder#clear_page", :as => "folder_clear_page"
+    match "folder/clear", :to => "folder#clear", :as => "clear_folder"
+
     # Add support for select_all routes
     resources :select_all, :only => [:index, :update], :as => "select_all"
     match "select_all/clear", :to => "select_all#clear"
