@@ -8,6 +8,7 @@ development:
    access_token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
    token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
    userinfo_url: 'https://htrc3.pti.indiana.edu:9443/oauth2userinfo/userinfo'
+   callback_url: 'http://htrc6.pti.indiana.edu:9443/users/auth/wso2/callback'
    oauth2_client_id: 'DEVELOPMENT_CLIENT_ID'
    oauth2_secret: 'DEVELOPMENT_SECRET'
 
@@ -19,5 +20,6 @@ production:
    access_token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
    token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
    userinfo_url: 'https://htrc3.pti.indiana.edu:9443/oauth2userinfo/userinfo'
+   callback_url: 'http://htrc6.pti.indiana.edu:9443/users/auth/wso2/callback'
    oauth2_client_id: 'PRODUCTION_CLIENT_ID'
    oauth2_secret: 'PRODUCTION_SECRET'

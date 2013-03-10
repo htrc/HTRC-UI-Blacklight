@@ -54,6 +54,11 @@ module OmniAuth
 
          @raw_info.merge!(user)
       end
+
+      def callback_url
+        APP_CONFIG['callback_url']
+      end
+
     end
   end
 end
