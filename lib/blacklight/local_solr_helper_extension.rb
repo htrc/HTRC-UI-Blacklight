@@ -7,7 +7,7 @@ module LocalSolrHelperExtension
 
   #     [ local overrides ]
 
-  # intercept "find" call in order to add the header parameters
+  # intercept "find" call in order to add the header parameters & save query parser value, if any
   def find(*args)
     # response = Blacklight.solr.find(*args)
 
@@ -18,6 +18,14 @@ module LocalSolrHelperExtension
       opts[:headers].merge!(get_header_params[:headers])
     else
       opts.merge!(get_header_params)
+    end
+
+    # save query parser value (if it exists) because it can change, depending upon search, and we need it to retrieve ids (in private methods inside
+    #    folder_controller.rb)
+    if (params.has_key?(:defType))
+      session[:search][:defType] = params[:defType]
+    else
+      session[:search].delete(:defType)
     end
     response = Blacklight.solr.find(path, params, opts)
 

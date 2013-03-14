@@ -1,16 +1,17 @@
 <div id="total_items" data-show="<%= @response.total %>"> </div>
+<div id="max_items" data-show="<%= $MAX_SINGLE_SEARCH_FOR_FOLDER %>"> </div>
 <ul class="folderAll">
   <li>
-    <%= link_to "Select Page Items", folder_update_page_path(), :id=>'select-page-link' %>
+    <%= link_to "Select Page Items", folder_update_page_path(), :id=>'select-page-link', :remote=>true %>
   </li>
   <li>
-    <%= link_to "Deselect Page Items", folder_clear_page_path(), :id=>'remove-page-link' %>
+    <%= link_to "Deselect Page Items", folder_clear_page_path(), :id=>'remove-page-link', :remote=>true %>
   </li>
   <li>
-    <%=  link_to "Select All Search Items", folder_update_all_search_path(), :id=>'select-all-search-link' %>
+    <%=  link_to "Select All Search Items", folder_update_all_search_path(), :id=>'select-all-search-link', :remote=>true %>
   </li>
   <li>
-    <%=  link_to "Deselect All Search Items", folder_clear_all_search_path(), :id=>'remove-all-search-link' %>
+    <%=  link_to "Deselect All Search Items", folder_clear_all_search_path(), :id=>'remove-all-search-link', :remote=>true %>
   </li>
   <li>
      <div id="loading" style="display: none">

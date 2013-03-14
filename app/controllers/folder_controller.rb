@@ -38,7 +38,7 @@ class FolderController < ApplicationController
       # Original call from Blacklight, gets all documents
       #@response, @documents = get_solr_response_for_field_values("id", session[:folder_document_ids] || [])
    
-      # HTRC call, retrieving only the subset of documents to be displayed
+      # HTRC call, retrieving only the subset of documents to be displayed, using the standard (lucene) query parser
        @response, @documents = get_solr_response_for_field_values("id", ids_subset || [])
    
        # Override the :numFound and :start values to support paging
@@ -94,35 +94,48 @@ class FolderController < ApplicationController
     # JSON response for JQuery checkbox includes the total number ids
     respond_to do |format|
       format.html { redirect_to :back }
-      format.json { render :json => { :count => session[:folder_document_ids].length } }
-    end
+      format.js  {render :template => 'folder/folder_response', :locals => {:message_only => false, :check => true} }
+      # need?
+      # format.json { render :json => { :count => session[:folder_document_ids].length } }
+     end
   end
 
   # add All document_ids in query to the folder.
   def update_all_search
 
-    # Initialize stored document ids, if empty
-    if (session[:folder_document_ids].nil?)
-      session[:folder_document_ids] = Array.new
+    message_only = false
+    search_total = 0
+    if (session[:search].has_key?(:total))
+      search_total = session[:search][:total]
     end
+    # adds extra layer of protection...
+    if (search_total < $MAX_SINGLE_SEARCH_FOR_FOLDER)
+      # Initialize stored document ids, if empty
+      if (session[:folder_document_ids].nil?)
+        session[:folder_document_ids] = Array.new
+      end
 
-    # Get the current list of stored document ids
-    selected = session[:folder_document_ids]
+      # Get the current list of stored document ids
+      selected = session[:folder_document_ids]
 
-    # Get the list of ids for the current query
-    ids = get_all_ids_for_query()
+      # Get the list of ids for the current query
+      ids = get_all_ids_for_query()
 
-    # Add any missing ids to the list of selected document ids
-    #   two ways to do this...
-    #  session[:folder_document_ids] = (selected + ids).uniq
-    session[:folder_document_ids] = (selected.concat(ids)).uniq
+      # Add any missing ids to the list of selected document ids
+      #   two ways to do this...
+      #  session[:folder_document_ids] = (selected + ids).uniq
+      session[:folder_document_ids] = (selected.concat(ids)).uniq
 
-    flash[:notice] = I18n.t('blacklight.folder.search.add.success')
-    # JSON response for JQuery checkbox includes the total number ids
+      flash[:notice] = I18n.t('blacklight.folder.search.add.success')
+    else
+      message_only = true
+      flash[:notice] = I18n.t('blacklight.folder.search.add.too_large', :number => $MAX_SINGLE_SEARCH_FOR_FOLDER)
+    end
     respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { render :json => { :count => session[:folder_document_ids].length } }
-    end
+        format.html { redirect_to :back }
+        format.js  {render :template => 'folder/folder_response', :locals => {:message_only => message_only, :check => true} }
+      end
+
 
   end
 
@@ -163,24 +176,30 @@ class FolderController < ApplicationController
   # get rid of the all the present search items in the folder
   def clear_all_search
 
-    # Get the current list of stored document ids
-    selected = session[:folder_document_ids]
+    message_only = false
+    search_total = 0
+    if (session[:search].has_key?(:total))
+      search_total = session[:search][:total]
+    end
 
-    # Get the list of ids for the current query
-    ids = get_all_ids_for_query()
+    if (search_total < $MAX_SINGLE_SEARCH_FOR_FOLDER)
+      # Get the current list of stored document ids
+      selected = session[:folder_document_ids]
 
-    #  Remove any ids in current search that are already on list selected document ids (Assume ids are unique)
-    session[:folder_document_ids] = session[:folder_document_ids] - ids
-    # longer way to do above statement:
-    # for id in ids
-    #    session[:folder_document_ids].delete[id]
-    #  end
+      # Get the list of ids for the current query
+      ids = get_all_ids_for_query()
 
-    flash[:notice] = I18n.t('blacklight.folder.search.remove.success')
+      #  Remove any ids in current search that are already on list selected document ids (Assume ids are unique)
+      session[:folder_document_ids] = session[:folder_document_ids] - ids
 
+      flash[:notice] = I18n.t('blacklight.folder.search.remove.success')
+    else
+      message_only = true
+      flash[:notice] = I18n.t('blacklight.folder.search.remove.too_large', :number => $MAX_SINGLE_SEARCH_FOR_FOLDER)
+    end
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js { render :json => session[:folder_document_ids] }
+      format.js  {render :template => 'folder/folder_response', :locals => {:message_only => message_only, :check => false} }
     end
   end
 
@@ -194,16 +213,12 @@ class FolderController < ApplicationController
 
     #  Remove any ids in current search that are already on list selected document ids (Assume ids are unique)
     session[:folder_document_ids] = session[:folder_document_ids] - ids
-    # longer way to do above atatement:
-    # for id in ids
-    #    session[:folder_document_ids].delete[id]
-    #  end
 
     flash[:notice] = I18n.t('blacklight.folder.page.remove.success')
 
     respond_to do |format|
       format.html { redirect_to :back }
-      format.js { render :json => session[:folder_document_ids] }
+      format.js  {render :template => 'folder/folder_response', :locals => {:message_only => false, :check => false} }
     end
   end
 
@@ -229,6 +244,9 @@ class FolderController < ApplicationController
     solr_params[:fl] = "id"
     # solr_params[:rows] = per_page
     # solr_params[:start] = start_pos
+    if (session[:search].has_key?(:defType))
+      solr_params[:defType] = session[:search][:defType]
+    end
 
     @response, @documents = get_search_results(session[:search], solr_params)
 
@@ -254,6 +272,9 @@ class FolderController < ApplicationController
     solr_params[:rows] = total_docs
     # solr_params[:rows] = 1000 # Limit to 1000 for now
     solr_params[:start] = "0"
+    if (session[:search].has_key?(:defType))
+      solr_params[:defType] = session[:search][:defType]
+    end
 
     @response, @documents = get_search_results(session[:search], solr_params)
 

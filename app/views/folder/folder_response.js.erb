@@ -1,0 +1,12 @@
+
+var check = <%= check %> ;
+var message_only = <%= message_only %>
+
+if (!message_only) {
+  $("#folder_number").text('<%= escape_javascript("#{session[:folder_document_ids] ? session[:folder_document_ids].length : 0}") %>') ;
+  $('.toggle_folder').attr('checked', check);
+}
+
+$("#js_flasher").html("<%= escape_javascript(render :partial => '/flash_msg', :locals => { :flash => flash }).html_safe %>") ;
+$("#loading").hide();
+

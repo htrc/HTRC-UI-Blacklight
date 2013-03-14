@@ -23,7 +23,9 @@
       <div id="bd">
         <div id="main">
           <div id="main_container">
-            <%= render :partial=>'/flash_msg' %>
+            <div id="js_flasher">
+               <%= render :partial=>'/flash_msg' %>
+            </div>
             <%= yield %>
           </div>
         </div>
