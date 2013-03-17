@@ -11,6 +11,9 @@ en:
     header_links:
       open_workset: 'Manage Worksets'
 
+    session:
+      expired: 'Session expired. Please login.'
+
     registry:
        load:
           success: 'Workset "%{name}" opened'

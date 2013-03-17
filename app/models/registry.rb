@@ -23,7 +23,12 @@ class Registry
 
     workset_xml += "<content> " + volumes_xml + "</content></workset>"
 
-    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets")
+    public = 'false'
+    if (availability == "public")
+      public = 'true'
+    end
+
+    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets?public=#{public}")
     http = Net::HTTP.new(url.host, url.port)
     http.set_debug_output($stdout)
     http.use_ssl = true
@@ -36,9 +41,17 @@ class Registry
 
     response = http.request(request)
 
-    response_xml = response.body
-    Rails.logger.debug(response_xml)
+    # response_xml = response.body
+    #Rails.logger.debug(response_xml)
 
+    case response
+      when Net::HTTPUnauthorized then
+        raise ("Session expired")
+      when Net::HTTPSuccess then
+        # Do nothing
+      else
+        raise ("System error")
+    end
   end
 
   def update_workset (username, token, workset_name, description, availability, tags)
@@ -56,7 +69,13 @@ class Registry
             "  </metadata>"+
             " </workset>"
 
-    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}")
+
+    public = 'false'
+    if (availability == "public")
+      public = 'true'
+    end
+
+    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}?public=#{public}")
     http = Net::HTTP.new(url.host, url.port)
     http.set_debug_output($stdout)
     http.use_ssl = true
@@ -69,9 +88,17 @@ class Registry
 
     response = http.request(request)
 
-    response_xml = response.body
-    Rails.logger.debug(response_xml)
+    #response_xml = response.body
+    #Rails.logger.debug(response_xml)
 
+    case response
+      when Net::HTTPUnauthorized then
+        raise ("Session expired")
+      when Net::HTTPSuccess then
+        # Do nothing
+      else
+        raise ("System error")
+    end
   end
 
   # Update volumes associated with the workset
@@ -114,7 +141,16 @@ class Registry
     request.body = volumes_xml
     response = http.request(request)
 
-    xml = response.body
+    #xml = response.body
+
+    case response
+      when Net::HTTPUnauthorized then
+        raise ("Session expired")
+      when Net::HTTPSuccess then
+        # Do nothing
+      else
+        raise ("System error")
+    end
 
   end
 
@@ -158,16 +194,24 @@ class Registry
     request.body = volumes_xml
     response = http.request(request)
 
-    xml = response.body
+    #xml = response.body
 
+    case response
+      when Net::HTTPUnauthorized then
+        raise ("Session expired")
+      when Net::HTTPSuccess then
+        # Do nothing
+      else
+        raise ("System error")
+    end
   end
 
 
   # List  worksets accessible by the specified user
-  def list_worksets (username, token)
+  def list_worksets (username, token, include_public)
     Rails.logger.debug "list_public_worksets #{username}"
 
-    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets")
+    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets?public=#{include_public}")
     http = Net::HTTP.new(url.host, url.port)
     http.set_debug_output($stdout)
     http.use_ssl = true
@@ -179,8 +223,18 @@ class Registry
     response = http.request(request)
     Rails.logger.debug "Response Code: #{response.code}"
 
+    case response
+    when Net::HTTPUnauthorized then
+        raise ("Session expired")
+    when Net::HTTPSuccess then
+        # Do nothing
+    else
+        raise ("System error")
+    end
+
+
     response_xml = response.body
-    Rails.logger.debug response_xml
+    #Rails.logger.debug response_xml
 
     worksets = Array.new
 
@@ -188,46 +242,52 @@ class Registry
     id=1
 
     doc.elements.each('worksets/workset/metadata') { |metadata|
-      hash = Hash.new
-      hash['name'] = metadata.elements['name'].text
-      hash['description'] = metadata.elements['description'].text
-      hash['author'] = metadata.elements['author'].text
-
-      if (hash['availability'] == "public" || username == hash['author'])
+        hash = Hash.new
+        hash['name'] = metadata.elements['name'].text
+        hash['description'] = metadata.elements['description'].text
+        hash['author'] = metadata.elements['author'].text
         hash['id'] = id
         id = id+1
         worksets << hash
+      }
+      return worksets
+    end
+
+
+    # Get the attributes of the specified workset
+    def get_workset  (token, author, workset_name)
+      Rails.logger.debug "get_workset  #{author}, #{workset_name}"
+
+      #curl -v -X GET -H "Accept: application/vnd.htrc-workset+xml" \
+      # http://localhost:9763/ExtensionAPI-0.1.0/services/worksets/workset1?user=fred
+
+      url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}?author=#{author}")
+      http = Net::HTTP.new(url.host, url.port)
+      http.set_debug_output($stdout)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+      request = Net::HTTP::Get.new(url.request_uri)
+      request.add_field("Authorization", "Bearer #{token}")
+      request.add_field("Accept", "application/vnd.htrc-workset+xml")
+      response = http.request(request)
+      #Rails.logger.debug "Response Code: #{response.code}"
+
+      case response
+        when Net::HTTPUnauthorized then
+          raise ("Session expired")
+        when Net::HTTPSuccess then
+          # Do nothing
+        else
+          raise ("System error")
       end
-    }
-    return worksets
-  end
 
+      response_xml = response.body
+      #Rails.logger.debug response_xml
 
-  # Get the attributes of the specified workset
-  def get_workset  (username, token, workset_name)
-    Rails.logger.debug "get_workset  #{username}, #{workset_name}"
-
-    #curl -v -X GET -H "Accept: application/vnd.htrc-workset+xml" \
-    # http://localhost:9763/ExtensionAPI-0.1.0/services/worksets/workset1?user=fred
-
-    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}")
-    http = Net::HTTP.new(url.host, url.port)
-    http.set_debug_output($stdout)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-    request = Net::HTTP::Get.new(url.request_uri)
-    request.add_field("Authorization", "Bearer #{token}")
-    request.add_field("Accept", "application/vnd.htrc-workset+xml")
-    response = http.request(request)
-    Rails.logger.debug "Response Code: #{response.code}"
-
-    response_xml = response.body
-    Rails.logger.debug response_xml
-
-    doc = REXML::Document.new(response_xml)
-    workset = Hash.new
-    doc.elements.each("/workset/metadata") { |metadata|
+      doc = REXML::Document.new(response_xml)
+      workset = Hash.new
+      doc.elements.each("/workset/metadata") { |metadata|
 
       workset['name'] = metadata.elements['name'].text
       workset['description'] = metadata.elements['description'].text
@@ -240,9 +300,9 @@ class Registry
 
 
   # Get the volume IDs for the specified workset
-  def get_workset_volumes  (username, token, workset_name)
-    Rails.logger.debug "get_workset_volumes  #{username}, #{workset_name}"
-    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}/volumes")
+  def get_workset_volumes  (author, token, workset_name)
+    Rails.logger.debug "get_workset_volumes  #{author}, #{workset_name}"
+    url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}/volumes?author=#{author}")
     http = Net::HTTP.new(url.host, url.port)
     http.set_debug_output($stdout)
     http.use_ssl = true
@@ -252,7 +312,17 @@ class Registry
     request.add_field("Authorization", "Bearer #{token}")
     request.add_field("Accept", "application/vnd.htrc-workset+xml")
     response = http.request(request)
-    Rails.logger.debug "Response Code: #{response.code}"
+
+    case response
+      when Net::HTTPUnauthorized then
+        raise ("Session expired")
+      when Net::HTTPSuccess then
+        # Do nothing
+      else
+        raise ("System error")
+    end
+
+    #Rails.logger.debug "Response Code: #{response.code}"
 
     volumes = response.body
     ids = volumes.split(" ")

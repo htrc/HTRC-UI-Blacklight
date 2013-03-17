@@ -8,7 +8,9 @@
           <%- @worksets.each do |workset| -%>
               <option id="<%= workset['id'] %>" value="<%= workset['id'] %>"><%= workset["name"] %></option>
           <%- end -%>
-        </select> <%= submit_tag("Update") %>
+        </select>
+       <%= select_tag(:a, options_for_select([['Public', 'public'], ['Private', 'private']], 2)) %>
+       <%= submit_tag("Update") %>
      </div>
      <hr align="left" style="margin-top: 30px; border 1px solid black; width: 440px; "/>
    <%- end -%> 
