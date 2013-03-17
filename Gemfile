@@ -38,7 +38,7 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug'
 
-gem 'blacklight'
+gem 'blacklight', '3.5.0'
 gem 'therubyracer'
 
 gem "devise"
@@ -46,8 +46,9 @@ gem "warden"
 gem "compass-rails", "~> 1.0.0", :group => :assets
 gem "compass-susy-plugin", "~> 0.9.0", :group => :assets
 #advanced search
-gem "blacklight_advanced_search"
+gem "blacklight_advanced_search", "1.2.4"
 gem "omniauth"
 gem "omniauth-oauth2"
 gem "rest-client"
 gem "multi_json"
+gem 'kaminari', '0.13.0'
