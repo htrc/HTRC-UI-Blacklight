@@ -1,4 +1,7 @@
 <h2>Manage Worksets</h2>
+<%- if current_user.nil? -%>
+   Please login.
+<%- else -%>
   <%- if !@worksets.nil? && @worksets.length > 0 -%>
 
    <div id="openWorkset" style="margin-left: 20px">
@@ -12,30 +15,27 @@
        <%= submit_tag("Open") %>
      <% end %>
    </div>
+   <br/>
+   <br/>
 
-<!--
-     <hr align="left" style="margin-top: 30px; border 1px solid black; width: 200px; "/>
-    
-   <%= form_tag(:controller => "registry", :action => "remove") do %> 
-     <h3>Remove a workset</h3>
+   <%- if !@myworksets.nil? && @myworksets.length > 0 -%>
+   <div id="removeWorkset" style="margin-left: 20px">
+       <%= form_tag(:controller => "registry", :action => "remove") do %>
 
-     <select id="ws" name="ws">
-       <%- @worksets.each do |workset| -%>
-           <option id="<%= workset['id'] %>" value="<%= workset['id'] %>">
-              <%= workset["author"] %>
-              (Owner: <%= workset["owner"] %>,
-              Availability: <%= workset["availability"] %>)
-           </option>
-       <%- end -%>
-     </select>
-   
-     <%= submit_tag("Remove") %>
-   <% end %>
+            <select id="ws" name="ws">
+              <%- @myworksets.each do |workset| -%>
+                <option id="<%= workset['id'] %>" value="<%= workset['id'] %>"><%= workset["name"] %> </option>
+              <%- end -%>
+            </select>
 
--->
+         <%= submit_tag("Remove", :confirm => 'Are you sure that you want to remove this workset?') %>
+       <% end %>
+   </div>
+    <%- end -%>
 
 
   <%- else -%> 
      No worksets
   <%- end -%>
 
+<%- end -%>
