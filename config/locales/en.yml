@@ -21,7 +21,8 @@ en:
           success: 'Workset "%{name}" created'
        update:
           success: 'Workset "%{name}" updated'
-
+       remove:
+          success: 'Workset "%{name}" removed'
     folder:
        all:
           remove:
