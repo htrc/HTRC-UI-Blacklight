@@ -18,3 +18,59 @@
   display: inline-block;
   margin: 0 10px;
 }
+
+#htrcFooter {
+    clear: both;
+    background-color: #777777;
+    color: #FFF;
+    width: 100%;
+    float: left;
+    height: 40px;
+    margin-top: 50px;
+    border-top: 3px solid #6a6a6a;
+}
+
+#htrcFooterCont {
+    margin: 0 auto;
+    width: 96%;
+    clear: left;
+}
+
+#htrcFooter .htrcFooterNav {
+    background: none;
+    color: #FFF;
+    position: relative;
+    top: 12px;
+}
+
+.htrcFooterNav ul li a {
+    color: rgb(238, 238, 238) !important;
+    padding: 5px 8px 7px;
+}
+
+.htrcFooterNav ul li {
+    display: inline;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    float: left;
+    background: none;
+    line-height: 1.3em;
+    margin-bottom: 5px;
+    padding: 0;
+    color: #ffffff;
+}
+
+.htrcFooterNav ul {
+    list-style-type: none;
+    margin: 0 0 0 5px;
+    padding: 0;
+}
+
+.htrcFooterNav {
+    font-size: .85em;
+    color: #ffffff;
+    float: right;
+    position: relative;
+    padding-left: 3px;
+}

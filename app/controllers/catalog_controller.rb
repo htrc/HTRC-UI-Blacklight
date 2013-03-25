@@ -58,13 +58,13 @@ class CatalogController < ApplicationController
     # on the solr side in the request handler itself. Request handler defaults
     # sniffing requires solr requests to be made with "echoParams=all", for
     # app code to actually have it echo'd back to see it.  
-    config.add_facet_field 'format', :label => 'Format', :limit => true
-    config.add_facet_field 'era', :label => 'Era', :limit => true
-    config.add_facet_field 'publishDate', :label => 'Year', :limit => true
-    config.add_facet_field 'topicStr', :label => 'Subject', :limit => true
-    config.add_facet_field 'language', :label => 'Language', :limit => true
-    config.add_facet_field 'htsource', :label => 'Source', :limit => true
-    config.add_facet_field 'genreStr', :label => 'Original Format', :limit => true
+    config.add_facet_field 'format', :label => 'Format', :limit => 20
+    config.add_facet_field 'era', :label => 'Era', :limit => 20
+    config.add_facet_field 'publishDate', :label => 'Year', :limit => 20
+    config.add_facet_field 'topicStr', :label => 'Subject', :limit => 20
+    config.add_facet_field 'language', :label => 'Language', :limit => 20
+    config.add_facet_field 'htsource', :label => 'Source', :limit => 20
+    config.add_facet_field 'genreStr', :label => 'Original Format', :limit => 20
     #config.add_facet_field 'topic', :label => 'Topic', :limit => 20 
     #config.add_facet_field 'language_facet', :label => 'Language', :limit => true 
     #config.add_facet_field 'lc_1letter_facet', :label => 'Call Number' 
