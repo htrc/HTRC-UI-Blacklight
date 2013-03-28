@@ -2,24 +2,26 @@
 #   http://wiki.htrc.illinois.edu/display/DEV/HTRC-UI-Blacklight
 
 development:
-   registry_url: 'https://htrc4.pti.indiana.edu:9443/ExtensionAPI-0.1.0/services'
+   registry_url: 'https://htrc4.pti.indiana.edu:9443/ExtensionAPI-1.0.0-SNAPSHOT/services'
    site_url:  'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
    authorize_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
    access_token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
    token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
    userinfo_url: 'https://htrc3.pti.indiana.edu:9443/oauth2userinfo/userinfo'
    callback_url: 'http://htrc6.pti.indiana.edu:9443/users/auth/wso2/callback'
+   portal_url: 'http://htrc5.pti.indiana.edu:9443/HTRC-UI-Portal2'
    oauth2_client_id: 'DEVELOPMENT_CLIENT_ID'
    oauth2_secret: 'DEVELOPMENT_SECRET'
 
 
 production:
-   registry_url: 'https://htrc4.pti.indiana.edu:9443/ExtensionAPI-0.1.0/services'
-   site_url:  'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
-   authorize_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
-   access_token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
-   token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
-   userinfo_url: 'https://htrc3.pti.indiana.edu:9443/oauth2userinfo/userinfo'
+   registry_url: 'https://chinkapin.pti.indiana.edu:9443/ExtensionAPI-1.0.0/services'
+   site_url:  'https://silvermaple.pti.indiana.edu:9443/oauth2/authorize'
+   authorize_url: 'https://silvermaple.pti.indiana.edu:9443/oauth2/authorize'
+   access_token_url: 'https://silvermaple.pti.indiana.edu:9443/oauth2endpoints/token'
+   token_url: 'https://silvermaple.pti.indiana.edu:9443/oauth2endpoints/token'
+   userinfo_url: 'https://silvermaple.pti.indiana.edu:9443/oauth2userinfo/userinfo'
    callback_url: 'http://htrc6.pti.indiana.edu:9443/users/auth/wso2/callback'
+   portal_url: 'https://htrc2.pti.indiana.edu/HTRC-UI-Portal2/'
    oauth2_client_id: 'PRODUCTION_CLIENT_ID'
    oauth2_secret: 'PRODUCTION_SECRET'
