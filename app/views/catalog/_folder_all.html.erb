@@ -2,20 +2,20 @@
 <div id="max_items" data-show="<%= $MAX_SINGLE_SEARCH_FOR_FOLDER %>"> </div>
 <ul class="folderAll">
   <li>
-    <%= link_to "Select Page Items", folder_update_page_path(), :id=>'select-page-link', :remote=>true %>
+    <%= link_to "Select items on page", folder_update_page_path(), :id=>'select-page-link', :remote=>true %>
   </li>
   <li>
-    <%= link_to "Deselect Page Items", folder_clear_page_path(), :id=>'remove-page-link', :remote=>true %>
+    <%= link_to "Deselect items on page", folder_clear_page_path(), :id=>'remove-page-link', :remote=>true %>
   </li>
   <li>
-    <%=  link_to "Select All Search Items", folder_update_all_search_path(), :id=>'select-all-search-link', :remote=>true %>
+    <%=  link_to "Select all search items", folder_update_all_search_path(), :id=>'select-all-search-link', :remote=>true %>
   </li>
   <li>
-    <%=  link_to "Deselect All Search Items", folder_clear_all_search_path(), :id=>'remove-all-search-link', :remote=>true %>
+    <%=  link_to "Deselect all search items", folder_clear_all_search_path(), :id=>'remove-all-search-link', :remote=>true %>
   </li>
   <li>
      <div id="loading" style="display: none">
-       <img src="/assets/blacklight/indicator.gif"></p>
+       <img src="/blacklight/assets/blacklight/indicator.gif"></p>
      </div>
   </li>
 </ul>
