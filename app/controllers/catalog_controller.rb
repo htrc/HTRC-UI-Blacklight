@@ -58,13 +58,17 @@ class CatalogController < ApplicationController
     # on the solr side in the request handler itself. Request handler defaults
     # sniffing requires solr requests to be made with "echoParams=all", for
     # app code to actually have it echo'd back to see it.  
-    config.add_facet_field 'format', :label => 'Format', :limit => 20
-    config.add_facet_field 'era', :label => 'Era', :limit => 20
-    config.add_facet_field 'publishDate', :label => 'Year', :limit => 20
+
+    #config.add_facet_field 'viewability, :label => Viewability', :limit=>20
     config.add_facet_field 'topicStr', :label => 'Subject', :limit => 20
+    config.add_facet_field 'authorStr', :label => 'Author', :limit => 20
     config.add_facet_field 'language', :label => 'Language', :limit => 20
-    config.add_facet_field 'htsource', :label => 'Source', :limit => 20
+    config.add_facet_field 'countryOfPubStr', :label=> 'Place of Publication', :limit=>20
+    config.add_facet_field 'publishDate', :label => 'Year', :limit => 20
+    #config.add_facet_field 'format', :label => 'Original Format', :limit => 20
     config.add_facet_field 'genreStr', :label => 'Original Format', :limit => 20
+    config.add_facet_field 'htsource', :label => 'Original Location', :limit => 20
+
     #config.add_facet_field 'topic', :label => 'Topic', :limit => 20 
     #config.add_facet_field 'language_facet', :label => 'Language', :limit => true 
     #config.add_facet_field 'lc_1letter_facet', :label => 'Call Number' 
@@ -117,7 +121,7 @@ class CatalogController < ApplicationController
     #config.add_show_field 'title_topProper', :label => 'Title:' 
     config.add_show_field 'title', :label => 'Title:'
     #config.add_show_field 'Vtitle', :label => 'Title:' 
-    config.add_show_field 'title_restProper', :label => 'Subtitle:' 
+    config.add_show_field 'title_rest', :label => 'Subtitle:'
     #config.add_show_field 'subtitle_vern_display', :label => 'Subtitle:' 
     #config.add_show_field 'Vauthor', :label => 'Author:' 
     config.add_show_field 'author', :label => 'Author:' 
