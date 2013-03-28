@@ -2,7 +2,7 @@
 .folderAll {
   width: 98.7%;
   text-align:right;
-  @include border-radius(0 0 4px 4px);
+  //@include border-radius(0 0 4px 4px);
   background-color: #DBDBDB;
   /*
   border-color: $search_ui_border_color;
