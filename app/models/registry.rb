@@ -46,11 +46,11 @@ class Registry
 
     case response
       when Net::HTTPUnauthorized then
-        raise Exceptions::SessionExpiredError.new ("Session expired")
+        raise Exceptions::SessionExpiredError.new("Session expired")
       when Net::HTTPSuccess then
         # Do nothing
       else
-        raise Exceptions::SystemError.new ("System error")
+        raise Exceptions::SystemError.new("System error")
     end
   end
 
@@ -93,11 +93,11 @@ class Registry
 
     case response
       when Net::HTTPUnauthorized then
-        raise Exceptions::SessionExpiredError.new ("Session expired. Please login again")
+        raise Exceptions::SessionExpiredError.new("Session expired. Please login again")
       when Net::HTTPSuccess then
         # Do nothing
       else
-        raise Exceptions::SystemError.new ("Error retrieving worksets (HTTP #{response.code})")
+        raise Exceptions::SystemError.new("Error retrieving worksets (HTTP #{response.code})")
     end
   end
 
@@ -145,11 +145,11 @@ class Registry
 
     case response
       when Net::HTTPUnauthorized then
-        raise Exceptions::SessionExpiredError.new ("Session expired. Please login again")
+        raise Exceptions::SessionExpiredError.new("Session expired. Please login again")
       when Net::HTTPSuccess then
         # Do nothing
       else
-        raise Exceptions::SystemError.new ("Error retrieving worksets (HTTP #{response.code})")
+        raise Exceptions::SystemError.new("Error retrieving worksets (HTTP #{response.code})")
     end
 
   end
@@ -198,11 +198,11 @@ class Registry
 
     case response
       when Net::HTTPUnauthorized then
-        raise Exceptions::SessionExpiredError.new ("Session expired. Please login again")
+        raise Exceptions::SessionExpiredError.new("Session expired. Please login again")
       when Net::HTTPSuccess then
         # Do nothing
       else
-        raise Exceptions::SystemError.new ("Error retrieving worksets (HTTP #{response.code})")
+        raise Exceptions::SystemError.new("Error retrieving worksets (HTTP #{response.code})")
     end
   end
 
@@ -227,11 +227,11 @@ class Registry
 
     case response
       when Net::HTTPUnauthorized then
-        raise Exceptions::SessionExpiredError.new ("Session expired. Please login again")
+        raise Exceptions::SessionExpiredError.new("Session expired. Please login again")
       when Net::HTTPSuccess then
         # Do nothing
       else
-        raise Exceptions::SystemError.new ("Error retrieving worksets (HTTP #{response.code})")
+        raise Exceptions::SystemError.new("Error retrieving worksets (HTTP #{response.code})")
     end
 
     response_xml = response.body
@@ -249,7 +249,14 @@ class Registry
         hash['author'] = metadata.elements['author'].text
         hash['id'] = id
         id = id+1
-        worksets << hash
+
+        if (hash['author'] == username)
+          worksets.unshift(hash)
+        else
+          worksets.push(hash)
+        end
+
+
       }
       return worksets
     end
@@ -276,11 +283,11 @@ class Registry
 
       case response
         when Net::HTTPUnauthorized then
-          raise Exceptions::SessionExpiredError.new ("Session expired. Please login again")
+          raise Exceptions::SessionExpiredError.new("Session expired. Please login again")
         when Net::HTTPSuccess then
           # Do nothing
         else
-          raise Exceptions::SystemError.new ("Error retrieving worksets (HTTP #{response.code})")
+          raise Exceptions::SystemError.new("Error retrieving worksets (HTTP #{response.code})")
       end
 
       response_xml = response.body
@@ -316,11 +323,11 @@ class Registry
 
     case response
       when Net::HTTPUnauthorized then
-        raise Exceptions::SessionExpiredError.new ("Session expired. Please login again")
+        raise Exceptions::SessionExpiredError.new("Session expired. Please login again")
       when Net::HTTPSuccess then
         # Do nothing
       else
-        raise Exceptions::SystemError.new ("Error retrieving worksets (HTTP #{response.code})")
+        raise Exceptions::SystemError.new("Error retrieving worksets (HTTP #{response.code})")
     end
 
     #Rails.logger.debug "Response Code: #{response.code}"
@@ -348,11 +355,11 @@ class Registry
 
     case response
       when Net::HTTPUnauthorized then
-        raise Exceptions::SessionExpiredError.new ("Session expired. Please login again")
+        raise Exceptions::SessionExpiredError.new("Session expired. Please login again")
       when Net::HTTPSuccess then
         # Do nothing
       else
-        raise Exceptions::SystemError.new ("Error deleting workset (HTTP #{response.code})")
+        raise Exceptions::SystemError.new("Error deleting workset (HTTP #{response.code})")
     end
 
   end
