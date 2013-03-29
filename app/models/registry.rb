@@ -240,26 +240,30 @@ class Registry
     worksets = Array.new
 
     doc = REXML::Document.new(response_xml)
-    id=1
 
     doc.elements.each('worksets/workset/metadata') { |metadata|
         hash = Hash.new
         hash['name'] = metadata.elements['name'].text
         hash['description'] = metadata.elements['description'].text
         hash['author'] = metadata.elements['author'].text
-        hash['id'] = id
-        id = id+1
 
         if (hash['author'] == username)
           worksets.unshift(hash)
         else
           worksets.push(hash)
         end
-
-
       }
-      return worksets
-    end
+
+    id = 1
+    worksets.each { |w|
+      w['id'] = id;
+      id = id+1
+
+    }
+
+    return worksets
+   end
+
 
 
     # Get the attributes of the specified workset
