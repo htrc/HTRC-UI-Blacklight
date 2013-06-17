@@ -6,30 +6,31 @@ class CatalogController < ApplicationController
   include LocalSolrHelperExtension
   include Blacklight::Catalog
   include BlacklightAdvancedSearch::ParseBasicQ
-  
+
   configure_blacklight do |config|
-    config.default_solr_params = { 
-      #:qt => 'search',
-      :qt => 'sharding',
-      :rows => 10,
-      :q => '*:*',
-      :'q.alt' => '*:*',
-      :facet => 'true',
-      :'facet.mincount' => 1,
-      :'facet.limit' => 20,
-      :echoParams => 'all'
+    config.default_solr_params = {
+        #:qt => 'search',
+        :qt => 'sharding',
+        :rows => 10,
+        :q => '*:*',
+        :'q.alt' => '*:*',
+        :facet => 'true',
+        :'facet.mincount' => 1,
+        :'facet.limit' => 20,
+        :echoParams => 'all',
+        :qf => 'ocr'
     }
 
     ## Default parameters to send on single-document requests to Solr. These settings are the Blackligt defaults (see SolrHelper#solr_doc_params) or 
     ## parameters included in the Blacklight-jetty document requestHandler.
     #
     config.default_document_solr_params = {
-      :qt => 'sharding',
-    #  ## These are hard-coded in the blacklight 'document' requestHandler
-     :fl => '*',
-     :rows => 1,
-     :q => '{!raw f=id v=$id}',
-     :echoParams => 'all'
+        :qt => 'sharding',
+        #  ## These are hard-coded in the blacklight 'document' requestHandler
+        :fl => '*',
+        :rows => 1,
+        :q => '{!raw f=id v=$id}',
+        :echoParams => 'all'
     }
 
 
@@ -91,10 +92,10 @@ class CatalogController < ApplicationController
     #config.add_index_field 'published_display', :label => 'Published:'
     #config.add_index_field 'published_vern_display', :label => 'Published:'
     #config.add_index_field 'lc_callnum_display', :label => 'Call number:'
-    config.add_index_field 'title', :label => 'Title:' 
-    config.add_index_field 'author', :label => 'Author:' 
+    config.add_index_field 'title', :label => 'Title:'
+    config.add_index_field 'author', :label => 'Author:'
     #config.add_index_field 'Vauthor', :label => 'Author:'
-    config.add_index_field 'format', :label => 'Format:' 
+    config.add_index_field 'format', :label => 'Format:'
     config.add_index_field 'language', :label => 'Language:'
     config.add_index_field 'publishDate', :label => 'Published:'
     #config.add_index_field 'published_vern_display', :label => 'Published:'
@@ -124,8 +125,8 @@ class CatalogController < ApplicationController
     config.add_show_field 'title_rest', :label => 'Subtitle:'
     #config.add_show_field 'subtitle_vern_display', :label => 'Subtitle:' 
     #config.add_show_field 'Vauthor', :label => 'Author:' 
-    config.add_show_field 'author', :label => 'Author:' 
-    config.add_show_field 'format', :label => 'Format:' 
+    config.add_show_field 'author', :label => 'Author:'
+    config.add_show_field 'format', :label => 'Format:'
     #config.add_show_field 'url_fulltext_display', :label => 'URL:'
     #config.add_show_field 'url_suppl_display', :label => 'More Information:'
     config.add_show_field 'language', :label => 'Language:'
@@ -157,14 +158,14 @@ class CatalogController < ApplicationController
     # This one uses all the defaults set by the solr request handler. Which
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise. 
-    
-    config.add_search_field 'all_fields', :label => 'Full Text'
-    
+
+    config.add_search_field 'allfields', :label => 'Full Text'
+
 
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields. 
-    
+
     config.add_search_field('title') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params. 
       field.solr_parameters = { :'spellcheck.dictionary' => 'title', :defType => 'dismax', :'q.alt' => '*:*' }
@@ -172,19 +173,19 @@ class CatalogController < ApplicationController
       # syntax, as eg {! qf=$title_qf }. This is neccesary to use
       # Solr parameter de-referencing like $title_qf.
       # See: http://wiki.apache.org/solr/LocalParams
-      field.solr_local_parameters = { 
+      field.solr_local_parameters = {
 #        :qf => '$title_qf',
 #        :pf => '$title_pf'
-        :qf => 'title'
+:qf => 'title'
       }
     end
-    
+
     config.add_search_field('author') do |field|
       field.solr_parameters = { :'spellcheck.dictionary' => 'author', :defType => 'dismax', :'q.alt' => '*:*' }
-      field.solr_local_parameters = { 
+      field.solr_local_parameters = {
 #        :qf => '$author_qf',
 #       :pf => '$author_pf'
-        :qf => 'author'
+:qf => 'author'
       }
     end
 
@@ -193,10 +194,10 @@ class CatalogController < ApplicationController
     # config[:default_solr_parameters][:qt], so isn't actually neccesary. 
     config.add_search_field('subject') do |field|
       field.solr_parameters = { :'spellcheck.dictionary' => 'subject', :defType => 'dismax', :'q.alt' => '*:*' }
-      field.solr_local_parameters = { 
+      field.solr_local_parameters = {
 #        :qf => '$subject_qf',
 #        :pf => '$subject_pf'
-        :qf => 'topic'
+:qf => 'topic'
       }
     end
 
@@ -204,14 +205,14 @@ class CatalogController < ApplicationController
       field.solr_parameters = { :defType => 'dismax', :'q.alt' => '*:*' }
       field.include_in_simple_select = false
       field.solr_local_parameters = {
-        :qf => 'publishDateTrie'
+          :qf => 'publishDateTrie'
       }
     end
 
     config.advanced_search = {
-      :qt => 'sharding'
+        :qt => 'sharding'
     }
-    
+
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
