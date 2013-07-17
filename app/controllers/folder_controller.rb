@@ -1,12 +1,15 @@
 # -*- encoding : utf-8 -*-
 class FolderController < ApplicationController
+
   include LocalSolrHelperExtension
   include Blacklight::Configurable
   include Blacklight::SolrHelper
+  include BlacklightAdvancedSearch::Controller
 
   copy_blacklight_config_from(CatalogController)
 
   helper CatalogHelper
+
 
   # fetch the documents that match the ids in the folder
   def index
@@ -37,10 +40,12 @@ class FolderController < ApplicationController
 
       # Original call from Blacklight, gets all documents
       #@response, @documents = get_solr_response_for_field_values("id", session[:folder_document_ids] || [])
-   
+
+
       # HTRC call, retrieving only the subset of documents to be displayed, using the standard (lucene) query parser
        @response, @documents = get_solr_response_for_field_values("id", ids_subset || [])
-   
+
+
        # Override the :numFound and :start values to support paging
        @response.response[:numFound] = session[:folder_document_ids].length
        @response.response[:start] = (current_page -1) * per_page
@@ -84,6 +89,7 @@ class FolderController < ApplicationController
 
     # Get the list of ids for the current page
     ids = get_page_ids_for_query()
+
 
     # Add any missing ids to the list of selected document ids
     #   two ways to do this...
@@ -242,8 +248,8 @@ class FolderController < ApplicationController
     # Construct Solr query
     solr_params = Hash.new
     solr_params[:fl] = "id"
-    # solr_params[:rows] = per_page
-    # solr_params[:start] = start_pos
+    #solr_params[:rows] = session[:search][:per_page]
+    #solr_params[:start] = session[:search][:start_pos]
     if (session[:search].has_key?(:defType))
       solr_params[:defType] = session[:search][:defType]
     end
