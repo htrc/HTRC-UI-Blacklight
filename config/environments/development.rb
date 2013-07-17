@@ -19,7 +19,6 @@ BlacklightHtrc::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
-  config.logger = Logger.new(config.paths.log.first.path, 'daily')
   config.log_level = :debug
 
   # Only use best-standards-support built into browsers
