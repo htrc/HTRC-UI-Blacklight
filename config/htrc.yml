@@ -2,7 +2,7 @@
 #   http://wiki.htrc.illinois.edu/display/DEV/HTRC-UI-Blacklight
 
 development:
-   registry_url: 'https://htrc4.pti.indiana.edu:9443/ExtensionAPI-1.0.0-SNAPSHOT/services'
+   registry_url: 'https://htrc4.pti.indiana.edu:9443/ExtensionAPI-1.0.1-SNAPSHOT/services'
    site_url:  'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
    authorize_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
    access_token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
