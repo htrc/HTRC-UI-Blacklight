@@ -52,3 +52,4 @@ gem "omniauth-oauth2"
 gem "rest-client"
 gem "multi_json"
 gem 'kaminari', '0.13.0'
+gem "nokogiri", "1.5.9"
