@@ -3,6 +3,6 @@
    <%= label_tag(:selectall, "Select All") %>
    <%= hidden_field_tag "select_all_total", @response.total %>
    <div id="loading" style="display: none">
-       <p><img src="<%= asset_url('blacklight/indicator.gif') %>"></p>
+      <p><%= image_tag('blacklight/indicator.gif') %></p>
    </div>
 </div>
