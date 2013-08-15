@@ -46,7 +46,7 @@ $(document).ready(function() {
         /* event.preventDefault(); */
         return true ;
     }
-    var answer = $.rails.confirm("Are you sure you want to delete only all the items you've selected in this search?", $(this)) ;
+    var answer = $.rails.confirm("Are you sure you want to clear all the items you've selected in this search?", $(this)) ;
     if (!answer) {
       $("#loading").hide();
       /* event.preventDefault(); */
@@ -77,7 +77,7 @@ $(document).ready(function() {
   $('#remove-all-link').click(function(event){
     $("#loading").show();
     total = $('#total_items').data('show')
-    var answer = $.rails.confirm("Are you sure you want to remove ALL the items from this folder?", $(this)) ;
+    var answer = $.rails.confirm("Are you sure you want to clear your selection?", $(this)) ;
     if (!answer) {
       $("#loading").hide();
       /* event.preventDefault(); */
