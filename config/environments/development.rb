@@ -36,4 +36,7 @@ BlacklightHtrc::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Sets the host for the assets
+  config.action_controller.asset_host = "http://htrc6.pti.indiana.edu:9443"
 end
