@@ -1,0 +1,52 @@
+<%# default partial to display solr document fields in catalog show view -%>
+<dl class="defList">
+  <% document_show_fields.each do |solr_fname, field| -%>
+    <% if document.has? solr_fname %>
+	    <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_label :field => solr_fname %></dt>
+	    <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_document_show_field_value :document => document, :field => solr_fname %></dd>
+
+    <% end -%>
+
+  <% end -%>
+
+</dl>
+
+<% #Below is code hacked in to show new metadata fields in some way for UnCamp September 8-9 2013 - Colleen Fallaw %>
+
+<% uri = URI.parse(URI.encode("http://chinkapin.pti.indiana.edu:9446/solr/meta/select?q=id:#{document.id}")) %>
+
+<% http = Net::HTTP.new(uri.host, uri.port) %>
+
+<% request = Net::HTTP::Get.new(uri.request_uri) %>
+
+<% response = http.request(request) %>
+
+<% xml = REXML::Document.new(response.body)%>
+
+<% nodes = REXML::XPath.first(xml, "//doc") %>
+
+<dl class="defList">
+
+<% nodes.each do |node_element| %>
+    <% if node_element.attributes["name"][0, 4] == "htrc" %>
+         <dt><%= node_element.attributes["name"] %></dt>
+
+
+        <% if node_element.has_elements? %>
+          <% all_children = node_element.to_a %>
+
+          <% all_children.each do |child| %>
+                <dd><%= child.text %> </dd>
+          <% end %>
+
+        <% else %>
+
+           <dd><%= node_element.text %></dd>
+
+        <% end %>
+
+     <% end %>
+
+<% end %>
+
+</dl>
