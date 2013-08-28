@@ -11,7 +11,8 @@
 # how to start up solr, generally for automated testing. 
 
 development:
-  url: 'http://chinkapin.pti.indiana.edu:9994/solr'
+  url: 'http://chinkapin.pti.indiana.edu:9446/solr/ocr'   #per Zong - new temporary solr port
+#  url: 'http://chinkapin.pti.indiana.edu:9994/solr'
 #  url: 'http://localhost:9994/solr'
 
 production:
