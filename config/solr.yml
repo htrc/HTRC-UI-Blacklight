@@ -18,6 +18,8 @@ development:
 production:
   url: 'http://chinkapin.pti.indiana.edu:9994/solr/ocr'
   #url: 'http://chinkapin.pti.indiana.edu:9994/solr'
+  # Sandbox:
+  #url: 'http://sandbox.htrc.illinois.edu:9994/solr/ocr'
 
 test: &test
   url: 'http://localhost:9994/solr/ocr'
