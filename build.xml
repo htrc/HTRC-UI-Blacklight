@@ -1,6 +1,6 @@
 <project name="Blacklight" default="dist" basedir=".">
   <property name="project"  value="htrc-blacklight"/>
-  <property name="version"  value="1.0.4"/>
+  <property name="version"  value="1.0.5"/>
   <description>
        Simple script to zip up the Blacklight directory and call it a release.
   </description>
