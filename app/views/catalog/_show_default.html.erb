@@ -13,7 +13,9 @@
 
 <% #Below is code hacked in to show new metadata fields in some way for UnCamp September 8-9 2013 - Colleen Fallaw %>
 
-<% uri = URI.parse(URI.encode("http://chinkapin.pti.indiana.edu:9446/solr/meta/select?q=id:#{document.id}")) %>
+<%# uri = URI.parse(URI.encode("http://chinkapin.pti.indiana.edu:9446/solr/meta/select?q=id:#{document.id}")) %>
+
+<% uri = URI.parse(URI.encode("http://sandbox.htrc.illinois.edu:9994/solr/meta/select?q=id:#{document.id}")) %>
 
 <% http = Net::HTTP.new(uri.host, uri.port) %>
 
@@ -25,28 +27,29 @@
 
 <% nodes = REXML::XPath.first(xml, "//doc") %>
 
-<dl class="defList">
+<% if nodes != nil %>
+    <dl class="defList">
 
-<% nodes.each do |node_element| %>
-    <% if node_element.attributes["name"][0, 4] == "htrc" %>
-         <dt><%= node_element.attributes["name"] %></dt>
+    <% nodes.each do |node_element| %>
+        <% if node_element.attributes["name"][0, 4] == "htrc" %>
+             <dt><%= node_element.attributes["name"] %></dt>
 
 
-        <% if node_element.has_elements? %>
-          <% all_children = node_element.to_a %>
+            <% if node_element.has_elements? %>
+              <% all_children = node_element.to_a %>
 
-          <% all_children.each do |child| %>
-                <dd><%= child.text %> </dd>
-          <% end %>
+              <% all_children.each do |child| %>
+                    <dd><%= child.text %> </dd>
+              <% end %>
 
-        <% else %>
+            <% else %>
 
-           <dd><%= node_element.text %></dd>
+               <dd><%= node_element.text %></dd>
 
-        <% end %>
+            <% end %>
 
-     <% end %>
+         <% end %>
 
+    <% end %>
+    </dl>
 <% end %>
-
-</dl>
