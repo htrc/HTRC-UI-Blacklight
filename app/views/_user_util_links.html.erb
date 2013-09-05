@@ -1,5 +1,9 @@
 <% if has_user_authentication_provider? %>
-  <% if current_user%>
+  <% if not current_user%>
+      <%= link_to 'Register', APP_CONFIG['register_url'] %>
+  <% end %>
+|
+    <% if current_user%>
     <%= link_to t('blacklight.header_links.logout'), destroy_user_session_path %> [<%= current_user.name %>]
   <% else %>
     <%= link_to t('blacklight.header_links.login'), user_omniauth_authorize_path(:wso2)  %>
