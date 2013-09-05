@@ -67,7 +67,6 @@ class CatalogController < ApplicationController
     config.add_facet_field 'countryOfPubStr', :label=> 'Place of Publication', :limit=>20
     config.add_facet_field 'publishDate', :label => 'Year', :limit => 20
     #config.add_facet_field 'format', :label => 'Original Format', :limit => 20
-    config.add_facet_field 'genreStr', :label => 'Original Format', :limit => 20
     config.add_facet_field 'htsource', :label => 'Original Location', :limit => 20
 
     #config.add_facet_field 'topic', :label => 'Topic', :limit => 20 
