@@ -7,6 +7,7 @@ development:
    google_analytics_tracking_code: 'none'
    register_url: 'http://htrc5.pti.indiana.edu:9443/HTRC-UI-Portal2/SignUpAction'
    solr_proxy_meta_url: 'http://chinkapin.pti.indiana.edu:9446/solr/meta'
+   asset_host_url: "http://htrc6.pti.indiana.edu:9443"
    registry_url: 'https://htrc4.pti.indiana.edu:9443/ExtensionAPI-1.0.4-SNAPSHOT/services'
    site_url:  'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
    authorize_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
@@ -23,6 +24,7 @@ sandbox:
    google_analytics_tracking_code: 'UA-42842720-4'
    register_url: 'https://sandbox.htrc.illinois.edu:8443/HTRC-UI-Portal2/SignUpAction'
    solr_proxy_meta_url: 'http://sandbox.htrc.illinois.edu:9994/solr/meta'
+   asset_host_url: "https://sandbox.htrc.illinois.edu:8443"
    registry_url: 'https://sandbox.htrc.illinois.edu:9444/ExtensionAPI-1.0.0/services'
    site_url:  'https://sandbox.htrc.illinois.edu:9443/oauth2/authorize'
    authorize_url: 'https://sandbox.htrc.illinois.edu:9443/oauth2/authorize'
