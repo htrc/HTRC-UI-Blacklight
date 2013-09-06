@@ -1,22 +1,20 @@
 <% if has_user_authentication_provider? %>
-  <% if not current_user%>
-      <%= link_to 'Register', APP_CONFIG['register_url'] %>
-  <% end %>
-|
     <% if current_user%>
-    <%= link_to t('blacklight.header_links.logout'), destroy_user_session_path %> [<%= current_user.name %>]
-  <% else %>
-    <%= link_to t('blacklight.header_links.login'), user_omniauth_authorize_path(:wso2)  %>
-  <% end %>
-| 
+        <%= link_to t('blacklight.header_links.logout'), destroy_user_session_path %> [<%= current_user.name %>]
+    <% else %>
+        <%= link_to 'Register', APP_CONFIG['register_url'] %>
+        |
+        <%= link_to t('blacklight.header_links.login'), user_omniauth_authorize_path(:wso2)  %>
+    <% end %>
+    |
 <% end %>
 <%= link_to t('blacklight.header_links.selected_items'), folder_index_path %> (<span id="folder_number"><%= "#{session[:folder_document_ids] ? session[:folder_document_ids].length : 0}" %></span>)
 
 <% if has_user_authentication_provider? %>
-  <% if current_user%>
-|
-    <%= link_to t('blacklight.header_links.open_workset'), registry_manage_path %>
-  <% end %>
+    <% if current_user%>
+        |
+        <%= link_to t('blacklight.header_links.open_workset'), registry_manage_path %>
+    <% end %>
 <% end %>
 |
 <%= link_to 'Portal', APP_CONFIG['portal_url'] %>
