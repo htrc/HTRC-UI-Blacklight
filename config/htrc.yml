@@ -25,7 +25,7 @@ sandbox:
    do_pairtree_substitutions?: true
    register_url: 'https://sandbox.htrc.illinois.edu:8443/HTRC-UI-Portal2/SignUpAction'
    solr_proxy_meta_url: 'http://sandbox.htrc.illinois.edu:9994/solr/meta'
-   registry_url: 'https://sandbox.htrc.illinois.edu:9444/ExtensionAPI-1.0.0/services'
+   registry_url: 'https://sandbox.htrc.illinois.edu:9444/ExtensionAPI-1.0.5-SNAPSHOT/services'
    site_url:  'https://sandbox.htrc.illinois.edu:9443/oauth2/authorize'
    authorize_url: 'https://sandbox.htrc.illinois.edu:9443/oauth2/authorize'
    access_token_url: 'https://sandbox.htrc.illinois.edu9443/oauth2endpoints/token'
