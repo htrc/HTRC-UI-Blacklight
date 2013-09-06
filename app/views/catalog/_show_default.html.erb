@@ -16,13 +16,16 @@
 <% begin %>
 
     <% # handle pairtree substitutions %>
-    <% raw_document_id = document.id %>
-    <% clean_document_id = raw_document_id.gsub("/", "=") %>
-    <% clean_document_id = clean_document_id.gsub(":", "+") %>
-    <% clean_document_id = clean_document_id.gsub(".", ",") %>
 
-
-    <% uri = URI.parse(URI.encode("#{APP_CONFIG['solr_proxy_meta_url']}/select?q=id:#{clean_document_id}")) %>
+    <% if APP_CONFIG['do_pairtree_substitutions?'] %>
+        <% raw_document_id = document.id %>
+        <% clean_document_id = raw_document_id.gsub("/", "=") %>
+        <% clean_document_id = clean_document_id.gsub(":", "+") %>
+        <% clean_document_id = clean_document_id.gsub(".", ",") %>
+        <% uri = URI.parse(URI.encode("#{APP_CONFIG['solr_proxy_meta_url']}/select?q=id:#{clean_document_id}")) %>
+    <% else %>
+       <% uri = URI.parse(URI.encode("#{APP_CONFIG['solr_proxy_meta_url']}/select?q=id:#{document.id}")) %>
+    <% end %>
 
      <% http = Net::HTTP.new(uri.host, uri.port) %>
 
