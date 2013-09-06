@@ -38,30 +38,82 @@
         <dl class="defList">
 
         <% nodes.each do |node_element| %>
-            <% if node_element.attributes["name"][0, 4] == "htrc" %>
-                 <dt><%= node_element.attributes["name"] %></dt>
-
-
-                <% if node_element.has_elements? %>
-                  <% all_children = node_element.to_a %>
-
-                  <% all_children.each do |child| %>
-                        <dd><%= child.text %> </dd>
-                  <% end %>
-
+            <% htrc_node_name = node_element.attributes["name"] %>
+            <% if htrc_node_name[0, 4] == "htrc" %>
+                <% case htrc_node_name %>
+                <% when "htrc_gender" %>
+                    <%# display nothing -- this field is redundant for this display %>
+                <% when "htrc_genderMale" %>
+                    <% all_children = node_element.to_a %>
+                    <% all_children.each do |child| %>
+                        <dt><%= child.text %>: </dt> <dd>Male</dd>
+                    <% end %>
+                <% when "htrc_genderFemale" %>
+                    <% all_children = node_element.to_a %>
+                    <% all_children.each do |child| %>
+                        <dt><%= child.text %>: </dt> <dd>Female</dd>
+                    <% end %>
+                <% when "htrc_genderUnknown" %>
+                    <% all_children = node_element.to_a %>
+                    <% all_children.each do |child| %>
+                        <dt><%= child.text %>: </dt> <dd>Gender Unknown</dd>
+                    <% end %>
+                    <% when "htrc_volumePageCountBin" %>
+                        <dt>Volume size by page: </dt>
+                        <% case node_element.text %>
+                        <% when "S" %>
+                            <dd>Small</dd>
+                        <% when "M" %>
+                            <dd>Medium</dd>
+                        <% when "L" %>
+                            <dd>Large</dd>
+                        <% when "XL" %>
+                            <dd>Extra Large</dd>
+                        <% else %>
+                            <% child.text %>
+                        <% end %>
+                    <% when "htrc_volumeWordCountBin" %>
+                        <dt>Volume size by word: </dt>
+                        <% case node_element.text %>
+                        <% when "S" %>
+                            <dd>Small</dd>
+                        <% when "M" %>
+                            <dd>Medium</dd>
+                        <% when "L" %>
+                            <dd>Large</dd>
+                        <% when "XL" %>
+                            <dd>Extra Large</dd>
+                        <% else %>
+                            <% child.text %>
+                        <% end %>
+                    <% when "htrc_pageCount" %>
+                        <dt>Page count: </dt> <dd><%= number_with_delimiter(Integer(node_element.text)) %></dd>
+                    <% when "htrc_wordCount" %>
+                        <dt>Word count: </dt> <dd><%= number_with_delimiter(Integer(node_element.text)) %></dd>
+                    <% when "htrc_charCount" %>
+                        <dt>Character count: </dt> <dd><%= number_with_delimiter(Integer(node_element.text)) %></dd>
                 <% else %>
+                        <dt><%= node_element.attributes["name"] %></dt>
+                        <% if node_element.has_elements? %>
+                            <% all_children = node_element.to_a %>
 
-                   <dd><%= node_element.text %></dd>
+                            <% all_children.each do |child| %>
+                                <dd><%= child.text %> </dd>
+                            <% end %>
 
+                        <% else %>
+
+                            <dd><%= node_element.text %></dd>
+
+                        <% end %>
+                    <% end %>
                 <% end %>
-
-             <% end %>
-
 
         <% end %>
         </dl>
 
     <% end %>
 <% rescue Exception=>e %>
+    <%# = e %>
   <p>Additional details not available for this volume at this time.</p>
 <% end %>
