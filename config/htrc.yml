@@ -9,7 +9,7 @@ development:
    register_url: 'http://htrc5.pti.indiana.edu:9443/HTRC-UI-Portal2/SignUpAction'
    solr_proxy_meta_url: 'http://chinkapin.pti.indiana.edu:9446/solr/meta'
    registry_url: 'https://htrc4.pti.indiana.edu:9443/ExtensionAPI-1.0.4-SNAPSHOT/services'
-   site_url:  'http://localhost:3000'
+   site_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
    authorize_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
    access_token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
    token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2endpoints/token'
@@ -22,7 +22,7 @@ development:
 sandbox:
    add_google_analytics?: true
    google_analytics_tracking_code: 'UA-42842720-4'
-   do_pairtree_substitutions?: false
+   do_pairtree_substitutions?: true
    register_url: 'https://sandbox.htrc.illinois.edu:8443/HTRC-UI-Portal2/SignUpAction'
    solr_proxy_meta_url: 'http://sandbox.htrc.illinois.edu:9994/solr/meta'
    registry_url: 'https://sandbox.htrc.illinois.edu:9444/ExtensionAPI-1.0.0/services'
