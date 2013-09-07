@@ -13,31 +13,32 @@
 
 <% #Below is code hacked in to show new metadata fields in some way for UnCamp September 8-9 2013 - Colleen Fallaw %>
 
+<% def getNodes(id) %>
+
+    <% uri = URI.parse(URI.encode("#{APP_CONFIG['solr_proxy_meta_url']}/select?q=id:#{id}")) %>
+    <% http = Net::HTTP.new(uri.host, uri.port) %>
+    <% request = Net::HTTP::Get.new(uri.request_uri) %>
+    <% response = http.request(request) %>
+    <% xml = REXML::Document.new(response.body)%>
+    <% return REXML::XPath.first(xml, "//doc") %>
+
+<% end %>
+
 <% begin %>
 
-    <% # handle pairtree substitutions %>
+    <% nodes = getNodes(document.id) %>
 
-    <% if APP_CONFIG['do_pairtree_substitutions?'] %>
+    <% if nodes == nil %>
+        <% # try again with pairtree substitutions %>
         <% raw_document_id = document.id %>
         <% clean_document_id = raw_document_id.gsub("/", "=") %>
         <% clean_document_id = clean_document_id.gsub(":", "+") %>
         <% clean_document_id = clean_document_id.gsub(".", ",") %>
-        <% uri = URI.parse(URI.encode("#{APP_CONFIG['solr_proxy_meta_url']}/select?q=id:#{clean_document_id}")) %>
-    <% else %>
-       <% uri = URI.parse(URI.encode("#{APP_CONFIG['solr_proxy_meta_url']}/select?q=id:#{document.id}")) %>
+        <% nodes = getNodes(clean_document_id) %>
     <% end %>
 
-     <% http = Net::HTTP.new(uri.host, uri.port) %>
-
-    <% request = Net::HTTP::Get.new(uri.request_uri) %>
-
-    <% response = http.request(request) %>
-
-    <% xml = REXML::Document.new(response.body)%>
-
-    <% nodes = REXML::XPath.first(xml, "//doc") %>
-
     <% if nodes != nil %>
+
         <dl class="defList">
 
         <% nodes.each do |node_element| %>
@@ -117,6 +118,7 @@
 
     <% end %>
 <% rescue Exception=>e %>
-    <%# = e %>
-  <p>Additional details not available for this volume at this time.</p>
+    <%= e %> <br />
+    <%= e.backtrace %> <br />
+   <p>Additional details not available for this volume at this time.</p>
 <% end %>
