@@ -5,7 +5,6 @@
 development:
    add_google_analytics?: false
    google_analytics_tracking_code: 'none'
-   do_pairtree_substitutions?: false
    register_url: 'http://htrc5.pti.indiana.edu:9443/HTRC-UI-Portal2/SignUpAction'
    solr_proxy_meta_url: 'http://chinkapin.pti.indiana.edu:9446/solr/meta'
    registry_url: 'https://htrc4.pti.indiana.edu:9443/ExtensionAPI-1.0.4-SNAPSHOT/services'
@@ -22,7 +21,6 @@ development:
 sandbox:
    add_google_analytics?: true
    google_analytics_tracking_code: 'UA-42842720-4'
-   do_pairtree_substitutions?: true
    register_url: 'https://sandbox.htrc.illinois.edu:8443/HTRC-UI-Portal2/SignUpAction'
    solr_proxy_meta_url: 'http://sandbox.htrc.illinois.edu:9994/solr/meta'
    registry_url: 'https://sandbox.htrc.illinois.edu:9444/ExtensionAPI-1.0.5-SNAPSHOT/services'
@@ -39,7 +37,6 @@ sandbox:
 production:
    add_google_analytics?: true
    google_analytics_tracking_code: 'UA-42842720-2'
-   do_pairtree_substitutions?: false
    register_url: 'https://htrc2.pti.indiana.edu/HTRC-UI-Portal2/SignUpAction'
    solr_proxy_meta_url: 'http://chinkapin.pti.indiana.edu:9446/solr/meta'
    registry_url: 'https://chinkapin.pti.indiana.edu:9443/ExtensionAPI-1.0.0/services'
