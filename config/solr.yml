@@ -12,6 +12,7 @@
 
 development:
   url: 'http://chinkapin.pti.indiana.edu:9994/solr/ocr'
+  #url: 'http://sandbox.htrc.illinois.edu:9994/solr/ocr'
 #  url: 'http://chinkapin.pti.indiana.edu:9994/solr'
 #  url: 'http://localhost:9994/solr'
 
