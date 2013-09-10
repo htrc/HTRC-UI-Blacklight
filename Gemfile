@@ -41,7 +41,7 @@ gem 'jquery-rails', '2.0.2'
 gem 'blacklight', '3.5.0'
 gem 'therubyracer'
 
-gem "devise"
+gem 'devise', '2.2.7'
 gem "warden"
 gem "compass-rails", "~> 1.0.0", :group => :assets
 gem "compass-susy-plugin", "~> 0.9.0", :group => :assets
