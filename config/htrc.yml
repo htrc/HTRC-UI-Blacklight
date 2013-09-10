@@ -39,7 +39,7 @@ production:
    google_analytics_tracking_code: 'UA-42842720-2'
    register_url: 'https://htrc2.pti.indiana.edu/HTRC-UI-Portal2/SignUpAction'
    solr_proxy_meta_url: 'http://chinkapin.pti.indiana.edu:9446/solr/meta'
-   registry_url: 'https://chinkapin.pti.indiana.edu:9443/ExtensionAPI-1.0.0/services'
+   registry_url: 'http://chinkapin.pti.indiana.edu:9763/ExtensionAPI-1.0.5-SNAPSHOT/services'
    site_url:  'https://silvermaple.pti.indiana.edu:9443/oauth2/authorize'
    authorize_url: 'https://silvermaple.pti.indiana.edu:9443/oauth2/authorize'
    access_token_url: 'https://silvermaple.pti.indiana.edu:9443/oauth2endpoints/token'
