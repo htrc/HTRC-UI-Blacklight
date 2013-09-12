@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+ruby "2.0.0"
+
+gem 'rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -12,16 +14,16 @@ gem 'json'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails'
+  gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier'
 end
 
-gem 'jquery-rails', '2.0.2'
+gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -41,15 +43,15 @@ gem 'jquery-rails', '2.0.2'
 gem 'blacklight', '3.5.0'
 gem 'therubyracer'
 
-gem 'devise', '2.2.7'
+gem 'devise'
 gem "warden"
-gem "compass-rails", "~> 1.0.0", :group => :assets
-gem "compass-susy-plugin", "~> 0.9.0", :group => :assets
+gem "compass-rails", :group => :assets
+gem "compass-susy-plugin",:group => :assets
 #advanced search
 gem "blacklight_advanced_search", "1.2.4"
 gem "omniauth"
 gem "omniauth-oauth2"
 gem "rest-client"
 gem "multi_json"
-gem 'kaminari', '0.13.0'
-gem "nokogiri", "1.5.9"
+gem 'kaminari'
+gem "nokogiri"
