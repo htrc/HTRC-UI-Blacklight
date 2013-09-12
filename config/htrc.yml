@@ -46,6 +46,6 @@ production:
    token_url: 'https://silvermaple.pti.indiana.edu:9443/oauth2endpoints/token'
    userinfo_url: 'https://silvermaple.pti.indiana.edu:9443/oauth2userinfo/userinfo'
    portal_url: 'https://htrc2.pti.indiana.edu/HTRC-UI-Portal2/'
-   callback_url: 'http://htrc6.pti.indiana.edu:9443/users/auth/wso2/callback'
+   callback_url: 'https://htrc2.pti.indiana.edu/users/auth/wso2/callback'
    oauth2_client_id: 'PRODUCTION_CLIENT_ID'
    oauth2_secret: 'PRODUCTION_SECRET'
