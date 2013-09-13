@@ -23,7 +23,7 @@ group :assets do
   gem 'uglifier'
 end
 
-gem 'jquery-rails'
+gem 'jquery-rails', "~> 2.3.0"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -53,5 +53,5 @@ gem "omniauth"
 gem "omniauth-oauth2"
 gem "rest-client"
 gem "multi_json"
-gem 'kaminari'
-gem "nokogiri"
+gem 'kaminari', '0.13.0'
+gem "nokogiri", "1.5.9"
