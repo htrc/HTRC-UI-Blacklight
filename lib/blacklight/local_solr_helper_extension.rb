@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 # LocalSolrHelperExtension extends (locally) SolrHelper, which is a controller layer mixin. It is in the controller scope: request params, session etc.
-#
+# 
 module LocalSolrHelperExtension
   extend ActiveSupport::Concern
   include Blacklight::SolrHelper
@@ -50,5 +50,5 @@ module LocalSolrHelperExtension
     end
   end
 
- end
+end
 
