@@ -38,5 +38,6 @@ BlacklightHtrc::Application.configure do
   config.assets.debug = true
 
   # Sets the host for the assets
-  config.action_controller.asset_host = "http://localhost:3000"
+  config.action_controller.asset_host = "http://host.pti.indiana.edu:9443"
+  #config.action_controller.asset_host = "http://localhost:3000"
 end
