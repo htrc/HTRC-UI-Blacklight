@@ -19,7 +19,7 @@ BlacklightHtrc::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
-  config.log_level = :debug
+  config.log_level = :warn
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
@@ -38,5 +38,5 @@ BlacklightHtrc::Application.configure do
   config.assets.debug = true
 
   # Sets the host for the assets
-  config.action_controller.asset_host = "http://htrc6.pti.indiana.edu:9443"
+  config.action_controller.asset_host = "http://localhost:3000"
 end
