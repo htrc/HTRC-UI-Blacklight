@@ -204,8 +204,8 @@ Devise.setup do |config|
   config.sign_out_via = :get
 
   # ==> OmniAuth
-  # Add a new OmniAuth provider. Check the wiki for more information on setting
-  # up on your models and hooks.
+  # Add a new OmniAuth provider.
+  # set wso2 as the omniauth strategy and set parameter
 
   config.omniauth :wso2, APP_CONFIG['oauth2_client_id'], APP_CONFIG['oauth2_secret'],
                   :scope => "openid",
