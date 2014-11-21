@@ -14,7 +14,9 @@
 /log/*.log
 /tmp
 
-#ignore IntellijIDEA files
-
+# Ignore IntellijIDEA files
 .idea/
 *.iml
+
+# Ignore htrc.yml
+/config/htrc.yml
