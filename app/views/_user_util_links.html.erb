@@ -1,6 +1,6 @@
 <% if has_user_authentication_provider? %>
     <% if current_user%>
-        <%= link_to t('blacklight.header_links.logout'), destroy_user_session_path %> [<%= current_user.name %>]
+        <%= link_to t('blacklight.header_links.logout'), destroy_user_session_path %> [<%= current_user.email %>]
     <% else %>
         <%= link_to 'Sign Up', APP_CONFIG['register_url'] %>
         |
