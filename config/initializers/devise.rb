@@ -11,6 +11,11 @@ Devise.setup do |config|
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 
+  # The secret key used by Devise. Devise uses this key to generate
+  # random tokens. Changing this key will render invalid all existing
+  # confirmation, reset password and unlock tokens in the database.
+  config.secret_key = APP_CONFIG['devise_key']
+
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
@@ -257,6 +262,4 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
-  # cfallaw 9/13/2013 Devise 3.x requires this: 
-  config.secret_key = '135bb280aca4ca50b29851d2341671940ae9b472ebc96fb1363a0bac932341b3dc64fd5fe1e152b53387b7f1ecb801dc49efbc963239708710ca84b4c74428ff'
 end
