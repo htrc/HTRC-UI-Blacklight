@@ -3,12 +3,6 @@ require "omniauth/omniauth-wso2"
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-
-  # The secret key used by Devise. Devise uses this key to generate
-  # random tokens. Changing this key will render invalid all existing
-  # confirmation, reset password and unlock tokens in the database.
-  config.secret_key = APP_CONFIG['devise_key']
-
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
@@ -91,7 +85,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = 'APP_CONFIG['devise_pepper']
+  # config.pepper = "3fbc17a0e8de638f158566c27a499c406d4a16a73c863be0d596938e37365ab5c31318a9a4de9a4b33d17c340e36d39eeef16970b6db89cc11233b39c30322e3"
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -134,7 +128,7 @@ Devise.setup do |config|
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
   config.timeout_in = 60.minutes
-
+  
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false
 
@@ -171,6 +165,14 @@ Devise.setup do |config|
   # change their passwords.
   config.reset_password_within = 6.hours
 
+  # ==> Configuration for :encryptable
+  # Allow you to use another encryption algorithm besides bcrypt (default). You can use
+  # :sha1, :sha512 or encryptors from others authentication tools as :clearance_sha1,
+  # :authlogic_sha512 (then you should set stretches above to 20 for default behavior)
+  # and :restful_authentication_sha1 (then you should set stretches to 10, and copy
+  # REST_AUTH_SITE_KEY to pepper)
+  # config.encryptor = :sha512
+
   # ==> Configuration for :token_authenticatable
   # Defines name of the authentication token params key
   # config.token_authentication_key = :auth_token
@@ -204,10 +206,10 @@ Devise.setup do |config|
   config.sign_out_via = :get
 
   # ==> OmniAuth
-  # Add a new OmniAuth provider.
-  # set wso2 as the omniauth strategy and set parameter
+  # Add a new OmniAuth provider. Check the wiki for more information on setting
+  # up on your models and hooks.
 
-  config.omniauth :wso2, APP_CONFIG['oauth2_client_id'], APP_CONFIG['oauth2_secret'],
+  config.omniauth :wso2, APP_CONFIG['oauth2_client_id'], APP_CONFIG['oauth2_secret'], 
                   :scope => "openid",
                   :strategy_class => OmniAuth::Strategies::WSO2,
                   :client_options => {:site => APP_CONFIG['site_url'],
@@ -232,13 +234,13 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 
-  # cwillis 12/11/2012
-  #config.warden do |manager|
-  #  manager.default_strategies(:scope => :user).unshift :htrc_auth
-  #end
+# cwillis 12/11/2012
+#config.warden do |manager|
+#  manager.default_strategies(:scope => :user).unshift :htrc_auth
+#end
 
   #config.warden do |manager|
-  #   manager.default_strategies.unshift :htrc_auth
+  #   manager.default_strategies.unshift :htrc_auth 
   #end
 
   # ==> Mountable engine configurations
@@ -255,5 +257,6 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
-
+  # cfallaw 9/13/2013 Devise 3.x requires this: 
+  config.secret_key = '135bb280aca4ca50b29851d2341671940ae9b472ebc96fb1363a0bac932341b3dc64fd5fe1e152b53387b7f1ecb801dc49efbc963239708710ca84b4c74428ff'
 end

@@ -13,8 +13,6 @@ BlacklightHtrc::Application.routes.draw do
   #  delete 'blacklight/signout' => 'devise/sessions#destroy', :as => :destroy_user_session
   #end
 
-  get 'blacklight' => 'catalog#index'
-
   my_draw = Proc.new do
     #fix problem with facet route not working...there may be other problems with routes with /
     match "catalog/facet/:id", :to => 'catalog#facet', :as => 'catalog_facet'

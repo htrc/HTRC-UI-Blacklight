@@ -21,7 +21,15 @@ class User < ActiveRecord::Base
 
   def self.find_for_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
+
+    #if user
+    #  Rails.logger.warn "user exists in models/user.rb"
+    #end
+
     unless user
+ 
+      Rails.logger.warn "info: #{auth.info}"
+
       user = User.create!(
                           :uid => auth.uid,
                           :email => auth.info.email,

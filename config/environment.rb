@@ -4,4 +4,4 @@ require File.expand_path('../application', __FILE__)
 # Initialize the rails application
 BlacklightHtrc::Application.initialize!
 
-log_level = :warn
+log_level = :debug

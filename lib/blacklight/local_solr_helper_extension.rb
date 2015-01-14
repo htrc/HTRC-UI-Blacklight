@@ -50,5 +50,5 @@ module LocalSolrHelperExtension
     end
   end
 
-end
+ end
 

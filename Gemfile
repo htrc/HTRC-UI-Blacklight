@@ -51,7 +51,6 @@ gem "compass-susy-plugin",:group => :assets
 gem "blacklight_advanced_search", "1.2.4"
 gem "omniauth"
 gem "omniauth-oauth2"
-gem "omniauth-saml"
 gem "rest-client"
 gem "multi_json"
 gem 'kaminari', '0.13.0'
