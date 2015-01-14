@@ -35,12 +35,10 @@ module OmniAuth
       }
 
       info do {
-          :lastname => raw_info['http://wso2.org/claims/lastname'],
-          :givenname => raw_info['http://wso2.org/claims/givenname'],
-          :email => raw_info['http://wso2.org/claims/emailaddress'],
-          :name => raw_info['http://wso2.org/claims/givenname']
-#         :name => raw_info['user_fullname'],
-#         :email => raw_info['user_email']
+          :lastname => raw_info['family_name'],
+          :givenname => raw_info['given_name'],
+          :email => raw_info['http://wso2.org/claims/email'],
+          :name => "#{raw_info['given_name']} #{raw_info['family_name']}"
       }
 
       end
