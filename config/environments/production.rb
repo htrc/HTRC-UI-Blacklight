@@ -64,7 +64,7 @@ BlacklightHtrc::Application.configure do
   config.active_support.deprecation = :notify
 
   # Sets the host for the assets
-  config.action_controller.asset_host = "http://host.pti.indiana.edu:9443"
+  config.action_controller.asset_host = "https://htrc2.pti.indiana.edu"
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
