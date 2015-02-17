@@ -1,0 +1,16 @@
+# config/idp.yml
+  development:
+    idp_metadata:                           "https://htrc3.pti.indiana.edu:9443/metadata/"
+    assertion_consumer_service_url:         "https://htrc3.pti.indiana.edu:3443/users/sign_in"
+    assertion_consumer_logout_service_url:  "https://htrc6.pti.indiana.edu:9443/users/sign_out"
+    issuer:                                 "https://htrc6.pti.indiana.edu:9443/users/auth/wso2/callback"
+    idp_entity_id:                          "https://htrc3.pti.indiana.edu:9443/metadata/"
+    assertion_consumer_service_binding: "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    name_identifier_format: "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    issuer: "https://htrc6.pti.indiana.edu:9443/users/sign_in"
+    authn_context: ""
+    idp_sso_target_url: "https://htrc3.pti.indiana.edu:9443/samlsso"
+    idp_cert: |-
+      -----BEGIN CERTIFICATE-----
+[SERVICE PROVIDER CERTIFICATE]
+-----END CERTIFICATE-----
