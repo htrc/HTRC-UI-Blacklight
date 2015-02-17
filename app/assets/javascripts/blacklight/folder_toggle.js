@@ -7,7 +7,6 @@
           success: function(new_state) {
             
             if (new_state) {
-                alert("inside new_state after change 2");
                $("#folder_number").text(parseInt($("#folder_number").text()) + 1);
                 location.reload();
             }
