@@ -1,4 +1,5 @@
 # config/idp.yml
+# configuration for devise_saml_authenticatable
   development:
     idp_metadata:                           "https://htrc3.pti.indiana.edu:9443/metadata/"
     assertion_consumer_service_url:         "https://htrc3.pti.indiana.edu:3443/users/sign_in"

@@ -1,0 +1,7 @@
+# config/attribute-map.yml
+# configuration for devise_saml_authenticatable
+
+  "urn:mace:dir:attribute-def:uid": "user_name"
+  "urn:mace:dir:attribute-def:email": "email"
+  "urn:mace:dir:attribute-def:name": "last_name"
+  "urn:mace:dir:attribute-def:givenName": "name"

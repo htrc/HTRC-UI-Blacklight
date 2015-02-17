@@ -47,6 +47,7 @@ gem 'devise'
 gem "warden"
 gem "compass-rails", :group => :assets
 gem "compass-susy-plugin",:group => :assets
+
 #advanced search
 gem "blacklight_advanced_search", "1.2.4"
 gem "omniauth"
@@ -55,3 +56,7 @@ gem "rest-client"
 gem "multi_json"
 gem 'kaminari', '0.13.0'
 gem "nokogiri", "1.5.9"
+
+# support single sign-on
+gem 'ruby-saml', '~> 0.9'
+gem 'devise_saml_authenticatable'
