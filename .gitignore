@@ -18,5 +18,6 @@
 .idea/
 *.iml
 
-# Ignore htrc.yml
-/config/htrc.yml
+# Ignore all secret and example files
+*.secret
+*.example
