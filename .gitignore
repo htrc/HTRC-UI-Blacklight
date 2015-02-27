@@ -21,3 +21,9 @@
 # Ignore all secret and example files
 *.secret
 *.example
+
+# Ignore deployed assets
+public/blacklight/
+
+# Ignore local versions of files
+*.local
