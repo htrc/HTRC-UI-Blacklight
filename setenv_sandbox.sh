@@ -1,4 +1,6 @@
 # Environment for sandbox
-export PATH=/data1/htrc/blacklight/bin:/data1/htrc/blacklight/gems/bin:$PATH
-export GEM_HOME=/data1/htrc/blacklight/
-export RUBYLIB=/data1/htrc/blacklight/lib
+export PATH=$HOME/.rbenv/bin:/htrc/blacklight/bin:/htrc/blacklight/gems/bin:$PATH
+export GEM_HOME=/htrc/blacklight/
+export RUBYLIB=/htrc/blacklight/lib
+eval "$(rbenv init -)"
+

@@ -1,0 +1,3 @@
+#!/bin/bash
+echo Starting Workset Builder in the background w/passenger...
+passenger start --environment=production --daemon
