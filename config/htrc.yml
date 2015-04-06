@@ -3,7 +3,7 @@ development:
    add_google_analytics?: false
    register_url: 'https://chinkapin.pti.indiana.edu/signup'
    solr_proxy_meta_url: 'http://chinkapin.pti.indiana.edu:9446/solr/meta'
-   registry_url: 'https://htrc3.pti.indiana.edu:9443/ExtensionAPI-1.1.1-SNAPSHOT/services'
+   registry_url: 'https://htrc3.pti.indiana.edu:9443/ExtensionAPI-1.2.1-SNAPSHOT/services'
    site_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
    authorize_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
    access_token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/token'
@@ -21,7 +21,7 @@ development:
 #   add_google_analytics?: true
 #   register_url: 'https://sandbox.htrc.illinois.edu/HTRC-UI-Portal2/SignUpAction'
 #   solr_proxy_meta_url: 'http://sandbox.htrc.illinois.edu/solr/meta'
-#   registry_url: 'https://localhost:9444/ExtensionAPI-1.0.5-SNAPSHOT/services'
+#   registry_url: 'https://localhost:9444/ExtensionAPI-1.2.0-SNAPSHOT/services'
 #   site_url:  'https://sandbox.htrc.illinois.edu/oauth2/authorize'
 #   authorize_url: 'https://sandbox.htrc.illinois.edu/oauth2/authorize'
 #   access_token_url: 'https://localhost:9443/oauth2endpoints/token'
@@ -39,7 +39,7 @@ development:
 #   add_google_analytics?: true
 #   register_url: 'https://htrc2.pti.indiana.edu/signup'
 #   solr_proxy_meta_url: 'http://chinkapin.pti.indiana.edu:9446/solr/meta'
-#   registry_url: 'https://silvermaple.pti.indiana.edu:9443/ExtensionAPI-1.1.1-SNAPSHOT/services'
+#   registry_url: 'https://silvermaple.pti.indiana.edu:9443/ExtensionAPI-1.2.0-SNAPSHOT/services'
 #   site_url:  'https://silvermaple.pti.indiana.edu/oauth2/authorize'
 #   authorize_url: 'https://silvermaple.pti.indiana.edu/oauth2/authorize'
 #   access_token_url: 'https://silvermaple.pti.indiana.edu/oauth2/token'
