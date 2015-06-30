@@ -1,6 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-  def wso2
+  def saml
     auth = env["omniauth.auth"]
     Rails.logger.info("auth is **************** #{auth.to_yaml}")
 

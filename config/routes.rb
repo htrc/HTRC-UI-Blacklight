@@ -1,10 +1,10 @@
 BlacklightHtrc::Application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  devise_scope :user do
-    get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
-    get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
-  end
+  # devise_scope :user do
+  #   get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
+  #   get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+  # end
 
   #as :user do
   #  get 'blacklight/signin' => 'devise/sessions#new', :as => :new_user_session
@@ -15,7 +15,7 @@ BlacklightHtrc::Application.routes.draw do
 
   my_draw = Proc.new do
     #fix problem with facet route not working...there may be other problems with routes with /
-    match "catalog/facet/:id", :to => 'catalog#facet', :as => 'catalog_facet'
+    # match "catalog/facet/:id", :to => 'catalog#facet', :as => 'catalog_facet'
     #this is indented to support routes with . and /
     resources :catalog, :only => [:index, :show, :update], :id => %r([^;,?]+)
     # resources :folder, :only => [:index, :show, :update, :destroy], :id => %r([^;,?]+)
@@ -23,27 +23,27 @@ BlacklightHtrc::Application.routes.draw do
 
     #default blacklight statements - should this be first?
     root :to => "catalog#index"
-    Blacklight.add_routes(self)
+    # Blacklight.add_routes(self)
 
     # Add support for folder (i.e. collection) item gathering
-    match "folder/update/all_search", :to => "folder#update_all_search", :as => "folder_update_all_search"
-    match "folder/update/page", :to => "folder#update_page", :as => "folder_update_page"
-    match "folder/clear/all_search", :to => "folder#clear_all_search", :as => "folder_clear_all_search"
-    match "folder/clear/page", :to => "folder#clear_page", :as => "folder_clear_page"
-    match "folder/clear", :to => "folder#clear", :as => "clear_folder"
+    post "folder/update/all_search", :to => "folder#update_all_search", :as => "folder_update_all_search"
+    post "folder/update/page", :to => "folder#update_page", :as => "folder_update_page"
+    post "folder/clear/all_search", :to => "folder#clear_all_search", :as => "folder_clear_all_search"
+    post "folder/clear/page", :to => "folder#clear_page", :as => "folder_clear_page"
+    post "folder/clear", :to => "folder#clear", :as => "clear_folder"
 
     # Add support for select_all routes
     resources :select_all, :only => [:index, :update], :as => "select_all"
-    match "select_all/clear", :to => "select_all#clear"
+    post "select_all/clear", :to => "select_all#clear"
 
     # Add support for export to registry
     resources :registry, :only => [:index, :export, :load, :manage, :remove]
-    match "registry/export", :to => "registry#export", :as => "registry_export"
-    match "registry/manage", :to => "registry#manage", :as => "registry_manage"
-    match "registry/load", :to => "registry#load", :as => "registry_load"
-    match "registry/remove", :to => "registry#remove", :as => "registry_remove"
+    post "registry/export", :to => "registry#export", :as => "registry_export"
+    post "registry/manage", :to => "registry#manage", :as => "registry_manage"
+    post "registry/load", :to => "registry#load", :as => "registry_load"
+    post "registry/remove", :to => "registry#remove", :as => "registry_remove"
 
-    match "folder/clear", :to => "folder#clear", :as => "clear_folder"
+    # post "folder/clear", :to => "folder#clear", :as => "clear_folder"
   
     # The priority is based upon order of creation:
     # first created -> highest priority.

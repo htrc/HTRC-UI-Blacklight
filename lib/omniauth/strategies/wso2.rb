@@ -30,15 +30,16 @@ module OmniAuth
       }       
 
       uid {
-         # raw_info['id'] 
-         raw_info['authorized_user'] 
+         raw_info['preferred_username']
+         #raw_info['role'][0..raw_info['role'].index(',')-1]
       }
 
       info do {
           :lastname => raw_info['family_name'],
           :givenname => raw_info['given_name'],
           :email => raw_info['http://wso2.org/oidc/claim/email'],
-          :name => "#{raw_info['given_name']} #{raw_info['family_name']}"
+          :name => "#{raw_info['given_name']} #{raw_info['family_name']}",
+          :role => raw_info['role']
       }
 
       end

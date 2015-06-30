@@ -3,7 +3,7 @@
 # 
 module LocalSolrHelperExtension
   extend ActiveSupport::Concern
-  include Blacklight::SolrHelper
+  include Blacklight::SearchHelper
   require 'net/http'
 
   #     [ local overrides ]

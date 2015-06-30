@@ -1,0 +1,3 @@
+#!/bin/bash
+echo Starting Workset Builder in the background w/passenger...
+RAILS_RELATIVE_URL_ROOT="/blacklight" passenger start --environment=test --daemon

@@ -1,20 +1,55 @@
-#development
-development:
+#localhost
+#test:
+#   add_google_analytics?: false
+#   register_url: 'https://localhost:9000/signup'
+#   solr_proxy_meta_url: 'http://chinkapin.pti.indiana.edu:9446/solr/meta'
+#   registry_url: 'https://129.79.44.243:9443/ExtensionAPI-1.2.2/services'
+#   site_url: 'https://129.79.44.243:9443/oauth2/authorize'
+#   authorize_url: 'https://129.79.44.243:9443/oauth2/authorize'
+#   access_token_url: 'https://129.79.44.243:9443/oauth2/token'
+#      token_url: 'https://129.79.44.243:9443/oauth2/token'
+#   userinfo_url: 'https://129.79.44.243:9443/oauth2/userinfo'
+#   portal_url: 'https://localhost:9000'
+#   callback_url: 'http://localhost:3000/users/auth/wso2/callback'
+#   google_analytics_tracking_code: 'none'
+#   devise_key: '15817af5020faef75e86f2c0c481ef05298dbfa68c9234a6b42b924770f3ffba098c939cd04cebb6a45446b751dcbc4eb6b7857f851027cf5305e4a698a2505f'
+#   oauth2_client_id: 'WS_DuSj6uCgUCqbcQGVGzf6SRpIa'
+#   oauth2_secret: 'bO_x5zHRnO3D21YAOC8nZkxfZ0Ua'
+
+test:
    add_google_analytics?: false
-   register_url: 'https://chinkapin.pti.indiana.edu/signup'
+   register_url: 'https://localhost:9000/signup'
    solr_proxy_meta_url: 'http://chinkapin.pti.indiana.edu:9446/solr/meta'
-   registry_url: 'https://htrc3.pti.indiana.edu:9443/ExtensionAPI-1.2.1-SNAPSHOT/services'
-   site_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
-   authorize_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
-   access_token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/token'
-   token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/token'
-   userinfo_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/userinfo'
-   portal_url: 'https://chinkapin.pti.indiana.edu'
-   callback_url: 'https://htrc6.pti.indiana.edu:9443/users/auth/wso2/callback'
+   registry_url: 'https://localhost:9443/ExtensionAPI-1.2.2/services'
+   site_url: 'https://localhost:9443/oauth2/authorize'
+   authorize_url: 'https://localhost:9443/oauth2/authorize'
+   access_token_url: 'https://localhost:9443/oauth2/token'
+   token_url: 'https://localhost:9443/oauth2/token'
+   userinfo_url: 'https://localhost:9443/oauth2/userinfo'
+   portal_url: 'https://localhost:9000'
+   callback_url: 'http://localhost:3000/users/auth/saml/callback'
    google_analytics_tracking_code: 'none'
-   devise_key: 'DEVISE_KEY'
-   oauth2_client_id: 'DEVELOPMENT_CLIENT_ID'
-   oauth2_secret: 'DEVELOPMENT_SECRET'
+   devise_key: '15817af5020faef75e86f2c0c481ef05298dbfa68c9234a6b42b924770f3ffba098c939cd04cebb6a45446b751dcbc4eb6b7857f851027cf5305e4a698a2505f'
+   oauth2_client_id: 'CKy_IoPGDtY1IDytphGBYPKB_yca'
+   oauth2_secret: 'BbTa9SwQd_1n6j7Kco5yAYowGDMa'
+
+#development
+#development:
+#   add_google_analytics?: false
+#   register_url: 'https://chinkapin.pti.indiana.edu/signup'
+#   solr_proxy_meta_url: 'http://chinkapin.pti.indiana.edu:9446/solr/meta'
+#   registry_url: 'https://htrc3.pti.indiana.edu:9443/ExtensionAPI-1.2.1-SNAPSHOT/services'
+#   site_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
+#   authorize_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/authorize'
+#   access_token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/token'
+#   token_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/token'
+#   userinfo_url: 'https://htrc3.pti.indiana.edu:9443/oauth2/userinfo'
+#   portal_url: 'https://chinkapin.pti.indiana.edu'
+#   callback_url: 'https://htrc6.pti.indiana.edu:9443/users/auth/wso2/callback'
+#   google_analytics_tracking_code: 'none'
+#   devise_key: 'DEVISE_KEY'
+#   oauth2_client_id: 'DEVELOPMENT_CLIENT_ID'
+#   oauth2_secret: 'DEVELOPMENT_SECRET'
 
 ##sandbox
 #production:

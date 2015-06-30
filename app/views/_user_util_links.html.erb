@@ -4,7 +4,7 @@
     <% else %>
         <%= link_to 'Sign Up', APP_CONFIG['register_url'] %>
         |
-        <%= link_to t('blacklight.header_links.login'), user_omniauth_authorize_path(:wso2)  %>
+        <%= link_to t('blacklight.header_links.login'), user_omniauth_authorize_path(:saml)  %>
     <% end %>
     |
 <% end %>

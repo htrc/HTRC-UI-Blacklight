@@ -1,6 +1,6 @@
 <h2>Manage Worksets</h2>
 <%- if current_user.nil? -%>
-    Please <%= link_to t('blacklight.header_links.login'), user_omniauth_authorize_path(:wso2)  %>.
+    Please <%= link_to t('blacklight.header_links.login'), user_omniauth_authorize_path(:saml)  %>.
 <%- else -%>
   <%- if !@worksets.nil? && @worksets.length > 0 -%>
 

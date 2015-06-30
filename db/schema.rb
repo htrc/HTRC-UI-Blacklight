@@ -9,79 +9,79 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121212045014) do
+ActiveRecord::Schema.define(version: 20121212045014) do
 
-  create_table "access_grants", :force => true do |t|
-    t.string   " "
-    t.string   "code"
-    t.string   "access_token"
-    t.string   "refresh_token"
+  create_table "access_grants", force: :cascade do |t|
+    t.string   " ",                       limit: 255
+    t.string   "code",                    limit: 255
+    t.string   "access_token",            limit: 255
+    t.string   "refresh_token",           limit: 255
     t.datetime "access_token_expires_at"
     t.integer  "user_id"
     t.integer  "application_id"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
-  create_table "bookmarks", :force => true do |t|
-    t.integer  "user_id",     :null => false
-    t.string   "document_id"
-    t.string   "title"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.string   "user_type"
+  create_table "bookmarks", force: :cascade do |t|
+    t.integer  "user_id",                 null: false
+    t.string   "document_id", limit: 255
+    t.string   "title",       limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "user_type",   limit: 255
   end
 
-  create_table "client_applications", :force => true do |t|
-    t.string   " "
-    t.string   "name"
-    t.string   "app_id"
-    t.string   "app_secret"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+  create_table "client_applications", force: :cascade do |t|
+    t.string   " ",          limit: 255
+    t.string   "name",       limit: 255
+    t.string   "app_id",     limit: 255
+    t.string   "app_secret", limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  create_table "searches", :force => true do |t|
+  create_table "searches", force: :cascade do |t|
     t.text     "query_params"
     t.integer  "user_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.string   "user_type"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "user_type",    limit: 255
   end
 
-  add_index "searches", ["user_id"], :name => "index_searches_on_user_id"
+  add_index "searches", ["user_id"], name: "index_searches_on_user_id"
 
-  create_table "sessions", :force => true do |t|
-    t.string   "session_id", :null => false
+  create_table "sessions", force: :cascade do |t|
+    t.string   "session_id", limit: 255, null: false
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
-  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
 
-  create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",                      default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
+    t.string   "name",                   limit: 255
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

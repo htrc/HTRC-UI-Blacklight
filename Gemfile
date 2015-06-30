@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "2.0.0"
+#ruby "2.0.0"
 
 gem 'rails'
 
@@ -14,7 +14,7 @@ gem 'json'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails'
+  gem 'sass-rails', '~> 4.0.2'
   gem 'coffee-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -40,7 +40,7 @@ gem 'jquery-rails', "~> 2.3.0"
 # To use debugger
 # gem 'ruby-debug'
 
-gem 'blacklight', '3.5.0'
+gem 'blacklight', '5.13.1'
 gem 'therubyracer'
 
 gem 'devise'
@@ -49,14 +49,17 @@ gem "compass-rails", :group => :assets
 gem "compass-susy-plugin",:group => :assets
 
 #advanced search
-gem "blacklight_advanced_search", "1.2.4"
+gem "blacklight_advanced_search", "5.1.4"
 gem "omniauth"
 gem "omniauth-oauth2"
 gem "rest-client"
 gem "multi_json"
-gem 'kaminari', '0.13.0'
-gem "nokogiri", "1.5.9"
-
+gem 'kaminari'
+gem "nokogiri", "1.6.6.2"
+gem 'rsolr'
+gem 'blacklight-marc'
+gem 'protected_attributes'
 # support single sign-on
-gem 'ruby-saml', '~> 0.9'
-gem 'devise_saml_authenticatable'
+#gem 'ruby-saml', '~> 0.9'
+#gem 'devise_saml_authenticatable'
+gem 'omniauth-saml'

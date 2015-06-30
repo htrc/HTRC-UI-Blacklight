@@ -1,5 +1,5 @@
-require "omniauth/omniauth-wso2"
-
+# require "omniauth/omniauth-wso2"
+require "omniauth-saml"
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -206,14 +206,17 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider.
   # set wso2 as the omniauth strategy and set parameter
+  config.omniauth :saml,
+                  :idp_cert_fingerprint               => "6B:F8:E1:36:EB:36:D4:A5:6E:A0:5C:7A:E4:B9:A4:5B:63:BF:97:5D",
+                  :idp_sso_target_url                 => "https://localhost:9443/samlsso"
 
-  config.omniauth :wso2, APP_CONFIG['oauth2_client_id'], APP_CONFIG['oauth2_secret'],
-                  :scope => "openid",
-                  :strategy_class => OmniAuth::Strategies::WSO2,
-                  :client_options => {:site => APP_CONFIG['site_url'],
-                                      :authorize_url => APP_CONFIG['authorize_url'],
-                                      :access_token_url => APP_CONFIG['access_token_url'],
-                                      :token_url => APP_CONFIG['token_url'], :ssl => {:verify => false }}
+  # config.omniauth :wso2, APP_CONFIG['oauth2_client_id'], APP_CONFIG['oauth2_secret'],
+  #                 :scope => "openid",
+  #                 :strategy_class => OmniAuth::Strategies::WSO2,
+  #                 :client_options => {:site => APP_CONFIG['site_url'],
+  #                                     :authorize_url => APP_CONFIG['authorize_url'],
+  #                                     :access_token_url => APP_CONFIG['access_token_url'],
+  #                                     :token_url => APP_CONFIG['token_url'], :ssl => {:verify => false }}
 
 
   # config.omniauth :wso2, APP_CONFIG['oauth2_client_id'], APP_CONFIG['oauth2_secret'], :scope => "openid",
@@ -258,10 +261,10 @@ Devise.setup do |config|
   # configuration for devise_saml_authenticatable
 
   # Create user if the user does not exist. (Default is false)
-  config.saml_create_user = true
+  # config.saml_create_user = true
 
   # Set the default user key (default is email). The user will be looked up by this key. Make sure that the Authentication Response includes
   # the attribute
-  config.saml_default_user_key = :user
+  # config.saml_default_user_key = :user
 
 end

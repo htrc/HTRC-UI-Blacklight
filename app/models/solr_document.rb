@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+require 'blacklight/solr/document/marc'
+
 class SolrDocument 
 
   include Blacklight::Solr::Document
