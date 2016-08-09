@@ -255,13 +255,4 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
-  # ==> DeviseSamlAuthenticatable Configuration
-
-  # Create user if the user does not exist. (Default is false)
-  config.saml_create_user = true
-
-  # Set the default user key (default is email). The user will be looked up by this key. Make sure that the Authentication Response includes
-  # the attribute
-  config.saml_default_user_key = :user
-
 end

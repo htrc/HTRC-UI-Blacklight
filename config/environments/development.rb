@@ -40,4 +40,7 @@ BlacklightHtrc::Application.configure do
 
   # Sets the host for the assets
   config.action_controller.asset_host = "https://htrc6.pti.indiana.edu:9443"
+
+  # Configure Google Analytics
+  GA.tracker = 'UA-42842720-10'
 end

@@ -60,8 +60,4 @@ gem "multi_json"
 gem 'kaminari', '0.13.0'
 gem "nokogiri"
 
-# support single sign-on
-gem 'ruby-saml' #, '~> 0.9'
-gem 'devise_saml_authenticatable'
-
 gem 'google-analytics-rails'
