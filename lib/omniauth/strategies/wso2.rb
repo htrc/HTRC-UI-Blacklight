@@ -52,14 +52,14 @@ module OmniAuth
       def raw_info
         @raw_info = {}
 
-        RestClient.add_before_execution_proc do |req, params|
-          Rails.logger.warn "req: #{req.inspect}, params:#{params.to_s} time: "#{Time.now.to_i}""
-        end
+        #RestClient.add_before_execution_proc do |req, params|
+        #  Rails.logger.warn "req: #{req.inspect}, params:#{params.to_s} time: "#{Time.now.to_i}""
+        #end
         
         response = RestClient.get("#{APP_CONFIG['userinfo_url']}?client_id=#{client.id}&client_secret=#{client.secret}&schema=openid",
                                   { :authorization => "Bearer #{access_token.token}", :content_type => :json }  )
         
-        Rails.logger.warn "user response from user info call: #{response.to_s}"
+        #Rails.logger.warn "user response from user info call: #{response.to_s}"
 
         user = MultiJson.decode(response.to_s)
 

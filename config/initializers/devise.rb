@@ -255,7 +255,7 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
-  # configuration for devise_saml_authenticatable
+  # ==> DeviseSamlAuthenticatable Configuration
 
   # Create user if the user does not exist. (Default is false)
   config.saml_create_user = true

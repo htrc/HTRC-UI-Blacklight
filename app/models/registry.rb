@@ -41,16 +41,18 @@ class Registry
 
     response = http.request(request)
 
-    # response_xml = response.body
+    #response_xml = response.body
     #Rails.logger.debug(response_xml)
 
     case response
+      
       when Net::HTTPUnauthorized then
         raise Exceptions::SessionExpiredError.new("Session expired")
       when Net::HTTPSuccess then
         # Do nothing
       else
-        raise Exceptions::SystemError.new("System error")
+        raise Exceptions::SystemError.new("System error (HTTP #{response.code})")
+        Rails.logger.warn "error response to registry call: #{response.to_s}"
     end
   end
 

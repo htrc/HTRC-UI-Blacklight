@@ -23,8 +23,9 @@ class User < ActiveRecord::Base
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
 
     #if user
-    #  Rails.logger.warn "user exists in models/user.rb"
-    #end
+     # sign_in(user)
+      #Rails.logger.warn "user exists in models/user.rb"
+   # end
 
     unless user
  

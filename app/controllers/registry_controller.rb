@@ -149,7 +149,7 @@ class RegistryController < ApplicationController
         # flash[:notice] = I18n.t('blacklight.registry.remove.success', :name => workset_name)
 
         respond_to do |format|
-          format.html { redirect_to registry_manage_path, :notice =>  I18n.t('blacklight.registry.remove.success', :name => workset_name) }
+          format.html { redirect_to "/blacklight/registry/manage", :notice =>  I18n.t('blacklight.registry.remove.success', :name => workset_name) }
           format.js { render :json => session[:folder_document_ids] }
         end
 
