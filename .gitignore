@@ -27,3 +27,7 @@ public/blacklight/
 
 # Ignore local versions of files
 *.local
+
+# Temporary files
+*~
+\#*#
