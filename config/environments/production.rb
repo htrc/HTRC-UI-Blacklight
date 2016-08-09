@@ -33,7 +33,8 @@ BlacklightHtrc::Application.configure do
 
 
   # See everything in the log (default is :info)
-  config.log_level = :debug
+  config.log_level = :warn
+  config.logger = Logger.new("/var/log/htrc/workset-builder/production.log")
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
@@ -69,4 +70,7 @@ BlacklightHtrc::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  # Configure Google Analytics
+  GA.tracker = 'UA-42842720-2'
 end

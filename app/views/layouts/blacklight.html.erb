@@ -8,22 +8,7 @@
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= raw(render_head_content) %>
-
-    <%# google analytics start %>
-    <% if APP_CONFIG['add_google_analytics?'] %>
-        <script>
-            var trackingcode = <%= APP_CONFIG['google_analytics_tracking_code'].html_safe %>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', trackingcode, 'indiana.edu');
-            ga('send', 'pageview');
-        </script>
-    <% end %>
-    <%# google analytics end %>
-
+    <%= analytics_init if GoogleAnalytics.valid_tracker? %>
   </head>
   <% onload_text = "$('input#q').focus();" if params[:q].to_s.empty? and params[:f].to_s.empty? and params[:id].nil? %>
   <body onload="<%= onload_text %>" class="<%= render_body_class.html_safe %>">

@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :saml_authenticatable, :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :timeoutable
 
   # Setup accessible (or protected) attributes for your model
@@ -23,8 +23,9 @@ class User < ActiveRecord::Base
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
 
     #if user
-    #  Rails.logger.warn "user exists in models/user.rb"
-    #end
+     # sign_in(user)
+      #Rails.logger.warn "user exists in models/user.rb"
+   # end
 
     unless user
  

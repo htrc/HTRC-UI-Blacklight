@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-ruby "2.0.0"
+#ruby "2.0.0"
+
+raise 'Ruby should be >2.0' unless RUBY_VERSION.to_f > 2.0
 
 gem 'rails'
 
@@ -14,6 +16,7 @@ gem 'json'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  gem 'sass', '~>3.2.0'
   gem 'sass-rails'
   gem 'coffee-rails'
 
@@ -55,8 +58,6 @@ gem "omniauth-oauth2"
 gem "rest-client"
 gem "multi_json"
 gem 'kaminari', '0.13.0'
-gem "nokogiri", "1.5.9"
+gem "nokogiri"
 
-# support single sign-on
-gem 'ruby-saml', '~> 0.9'
-gem 'devise_saml_authenticatable'
+gem 'google-analytics-rails'

@@ -50,7 +50,9 @@ module Devise
         url = URI.parse('#{agent_url}/login')
 
         http = Net::HTTP.new(url.host, url.port)
-        http.set_debug_output($stdout)
+        if Rails.env.development?
+          http.set_debug_output($stdout)
+        end
 
         request = Net::HTTP::Put.new(url.path)
         request.body = "<?xml version='1.0' encoding='UTF-8'?>" +

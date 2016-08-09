@@ -21,6 +21,7 @@ BlacklightHtrc::Application.configure do
 
   config.log_level = :warn
 
+  config.logger = Logger.new("/var/log/htrc/workset-builder/development.log")
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
@@ -39,4 +40,7 @@ BlacklightHtrc::Application.configure do
 
   # Sets the host for the assets
   config.action_controller.asset_host = "https://htrc6.pti.indiana.edu:9443"
+
+  # Configure Google Analytics
+  GA.tracker = 'UA-42842720-10'
 end
