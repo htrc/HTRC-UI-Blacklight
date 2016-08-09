@@ -30,7 +30,9 @@ class Registry
 
     url = URI.parse("#{APP_CONFIG['registry_url']}/worksets?public=#{public}")
     http = Net::HTTP.new(url.host, url.port)
-    http.set_debug_output($stdout)
+    if Rails.env.development?
+      http.set_debug_output($stdout)
+    end
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
@@ -79,7 +81,9 @@ class Registry
 
     url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}?public=#{public}")
     http = Net::HTTP.new(url.host, url.port)
-    http.set_debug_output($stdout)
+    if Rails.env.development?
+      http.set_debug_output($stdout)
+    end
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
@@ -132,7 +136,9 @@ class Registry
 
     url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}/volumes")
     http = Net::HTTP.new(url.host, url.port)
-    http.set_debug_output($stdout)
+    if Rails.env.development?
+      http.set_debug_output($stdout)
+    end
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
@@ -185,7 +191,9 @@ class Registry
 
     url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}")
     http = Net::HTTP.new(url.host, url.port)
-    http.set_debug_output($stdout)
+    if Rails.env.development?
+      http.set_debug_output($stdout)
+    end
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
@@ -215,7 +223,9 @@ class Registry
 
     url = URI.parse("#{APP_CONFIG['registry_url']}/worksets?public=#{include_public}")
     http = Net::HTTP.new(url.host, url.port)
-    http.set_debug_output($stdout)
+    if Rails.env.development?
+      http.set_debug_output($stdout)
+    end
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
@@ -224,8 +234,6 @@ class Registry
     request.add_field("Accept", "application/vnd.htrc-workset+xml")
     response = http.request(request)
     Rails.logger.debug "Response Code: #{response.code}"
-
-
 
     case response
       when Net::HTTPUnauthorized then
@@ -267,7 +275,6 @@ class Registry
    end
 
 
-
     # Get the attributes of the specified workset
     def get_workset  (token, author, workset_name)
       Rails.logger.debug "get_workset  #{author}, #{workset_name}"
@@ -277,7 +284,9 @@ class Registry
 
       url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}?author=#{author}")
       http = Net::HTTP.new(url.host, url.port)
-      http.set_debug_output($stdout)
+      if Rails.env.development?
+        http.set_debug_output($stdout)
+      end
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
@@ -318,7 +327,9 @@ class Registry
     Rails.logger.debug "get_workset_volumes  #{author}, #{workset_name}"
     url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}/volumes?author=#{author}")
     http = Net::HTTP.new(url.host, url.port)
-    http.set_debug_output($stdout)
+    if Rails.env.development?
+      http.set_debug_output($stdout)
+    end
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
@@ -350,7 +361,9 @@ class Registry
 
     url = URI.parse("#{APP_CONFIG['registry_url']}/worksets/#{workset_name}")
     http = Net::HTTP.new(url.host, url.port)
-    http.set_debug_output($stdout)
+    if Rails.env.development?
+      http.set_debug_output($stdout)
+    end
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
