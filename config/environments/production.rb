@@ -34,6 +34,7 @@ BlacklightHtrc::Application.configure do
 
   # See everything in the log (default is :info)
   config.log_level = :warn
+  config.logger = Logger.new("/var/log/htrc/workset-builder/production.log")
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
