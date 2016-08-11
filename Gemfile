@@ -61,4 +61,6 @@ gem 'kaminari', '0.13.0'
 gem "nokogiri"
 
 gem 'google-analytics-rails'
+
+# For logging
 gem 'lograge'
