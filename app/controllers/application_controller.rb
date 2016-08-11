@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
   # Adds a few additional behaviors into the application controller 
-   include Blacklight::Controller
+  include Blacklight::Controller
   # Please be sure to impelement current_user and user_session. Blacklight depends on 
   # these methods in order to perform user specific actions. 
 
@@ -13,6 +13,11 @@ class ApplicationController < ActionController::Base
     else
       {:headers => {"X-Forwarded-For"=> request.env["REMOTE_ADDR"]} }
     end
+  end
+
+  def append_info_to_payload(payload)
+    super
+    payload[:remote_ip] = request.remote_ip()
   end
 
 end

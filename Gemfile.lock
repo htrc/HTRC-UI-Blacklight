@@ -94,6 +94,10 @@ GEM
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
     libv8 (3.16.14.15)
+    lograge (0.3.6)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -207,6 +211,7 @@ DEPENDENCIES
   jquery-rails (~> 2.3.0)
   json
   kaminari (= 0.13.0)
+  lograge
   multi_json
   nokogiri
   omniauth
