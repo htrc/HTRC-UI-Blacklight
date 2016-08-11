@@ -22,12 +22,6 @@ BlacklightHtrc::Application.configure do
   # Set up logging
   config.log_level = :warn
   config.logger = Logger.new("/var/log/htrc/workset-builder/development.log")
-  config.assets.logger = false
-  config.lograge.enabled = true
-  config.lograge.custom_options = lambda do |event|
-    params = event.payload[:params].reject { |k| %w(controller action).include?(k) }
-    {:params => params, :time => event.time, :remote_ip => event.payload[:remote_ip], :user_agent => event.payload[:user_agent]}
-  end
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin

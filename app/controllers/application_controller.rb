@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
     super
     payload[:remote_ip] = request.remote_ip()
     payload[:user_agent] = request.user_agent
+    payload[:user] = request.env['warden'].user
   end
 
 end

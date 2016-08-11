@@ -38,7 +38,7 @@ BlacklightHtrc::Application.configure do
   config.lograge.enabled = true
   config.lograge.custom_options = lambda do |event|
     params = event.payload[:params].reject { |k| %w(controller action).include?(k) }
-    {:params => params, :time => event.time, :remote_ip => event.payload[:remote_ip], :user_agent => event.payload[:user_agent]}
+    {:params => params, :time => event.time, :remote_ip => event.payload[:remote_ip], :user_agent => event.payload[:user_agent], :user => event.payload[:user]}
   end
 
   # Prepend all log lines with the following tags
