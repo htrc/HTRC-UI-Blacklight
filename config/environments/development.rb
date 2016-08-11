@@ -19,9 +19,10 @@ BlacklightHtrc::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
+  # Set up logging
   config.log_level = :warn
-
   config.logger = Logger.new("/var/log/htrc/workset-builder/development.log")
+
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 

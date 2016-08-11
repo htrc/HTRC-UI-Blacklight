@@ -31,10 +31,15 @@ BlacklightHtrc::Application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-
-  # See everything in the log (default is :info)
+  # Set up logging
   config.log_level = :warn
   config.logger = Logger.new("/var/log/htrc/workset-builder/production.log")
+  config.assets.logger = false
+  config.lograge.enabled = true
+  config.lograge.custom_options = lambda do |event|
+    params = event.payload[:params].reject { |k| %w(controller action).include?(k) }
+    {:params => params, :time => event.time, :remote_ip => event.payload[:remote_ip]}
+  end
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
