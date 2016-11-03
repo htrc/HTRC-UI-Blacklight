@@ -6,6 +6,8 @@
 * To change this template use File | Settings | File Templates.
     */
 // Requires jQuery!
+//
+/**   DISABLE JIRA Collector -- if re-enabled, needs to work over HTTPS
 (function($) {
 
     $(document).ready(function(){
@@ -18,3 +20,4 @@
 
     });
 })(jQuery);
+*/
