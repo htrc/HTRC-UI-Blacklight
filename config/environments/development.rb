@@ -20,7 +20,7 @@ BlacklightHtrc::Application.configure do
   config.active_support.deprecation = :log
 
   # Set up logging
-  config.log_level = :warn
+  config.log_level = :debug
   config.logger = Logger.new("/var/log/htrc/workset-builder/development.log")
 
   # Only use best-standards-support built into browsers
