@@ -201,7 +201,7 @@ class CatalogController < ApplicationController
     end
 
     config.add_search_field('publishDate') do |field|
-      field.solr_parameters = { :defType => 'dismax', :'q.alt' => '*:*' }
+      field.solr_parameters = { :defType => 'edismax', :'q.alt' => '*:*' }
       field.include_in_simple_select = false
       field.solr_local_parameters = {
           :qf => 'publishDateTrie'
